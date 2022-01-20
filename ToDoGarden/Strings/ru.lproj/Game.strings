@@ -1,0 +1,52 @@
+/* 
+  Game.strings
+  ToDoGarden
+
+  Created by Дарья Селезнёва on 19.01.2022.
+  
+*/
+
+"Inventory" = "Инвентарь";
+
+"Tomato" = "Помидор";
+"Strawberry" = "Клубника";
+"Apple" = "Яблоко";
+"Sunflower" = "Подсолнух";
+"Walnut" = "Грецкий орех";
+"Watermelon" = "Арбуз";
+"Cherry" = "Вишня";
+"Pineapple" = "Ананас";
+"Avocado" = "Авокадо";
+"Coconut" = "Кокос";
+"Chili pepper" = "Перец чили";
+"Dragonfruit" = "Драгонфрут";
+
+"seed" = "семечко";
+"sprout" = "росток";
+"growing" = "растёт";
+"blooming" = "цветёт";
+"fruiting" = "плодоносит";
+"withering" = "увядает";
+"dead" = "сухое";
+"hibernated" = "в гибернации";
+
+" until fruiting" = " до плодоношения";
+" remaining" = " осталось";
+
+"Plants" = "Растения";
+"Items" = "Предметы";
+"Recipes" = "Рецепты";
+
+"Seeds" = "Семена";
+"Fruits" = "Плоды";
+"Stones" = "Камни";
+
+"Water" = "Полить";
+"Fertilize" = "Удобрить";
+
+"Fertilizer" = "Удобрение";
+"Firewood" = "Дрова";
+"Oil" = "Масло";
+
+"Buy?" = "Купить?";
+"Required level: " = "Необходимый уровень: ";

@@ -1,0 +1,63 @@
+/* 
+  Localizable.strings
+  ToDoGarden
+
+  Created by Дарья Селезнёва on 19.01.2022.
+  
+*/
+
+"Today" = "Сегодня";
+"Yesterday" = "Вчера";
+"Tomorrow" = "Завтра";
+
+"Level" = "Уровень";
+
+"Yes" = "Да";
+"No" = "Нет";
+
+"Active" = "Активные";
+"Completed" = "Завершённые";
+
+"Do you want to delete this task?" = "Удалить эту задачу?";
+"All scheduled tasks will also be deleted." = "Все запланированные на другие дни задачи также будут удалены.";
+"Delete" = "Удалить";
+"Cancel" = "Отменить";
+
+"Task" = "Задача";
+"New task" = "Новая задача";
+"Task title" = "Название задачи";
+"Notes" = "Заметки";
+"Date" = "Дата";
+"Start date" = "Дата начала";
+"Time" = "Время";
+"Repeat" = "Повторять";
+
+"Daily" = "Ежедневно";
+"Weekly" = "Еженедельно";
+"Monthly" = "Ежемесячно";
+"Yearly" = "Ежегодно";
+
+"Every" = "Каждые";
+"day" = "день";
+"week" = "неделю";
+"month" = "месяц";
+"year" = "год";
+
+"On weekdays:" = "По дням недели:";
+
+"Notification" = "Напоминание";
+"1 min before" = "За 1 минуту";
+"5 min before" = "За 5 минут";
+"15 min before" = "За 15 минут";
+"30 min before" = "За 30 минут";
+"1 hour before" = "За 1 час";
+"2 hours before" = "За 2 часа";
+
+"Color" = "Цвет";
+
+"Save" = "Сохранить";
+"Delete task" = "Удалить задачу";
+
+"A task should have a title" = "У задачи должно быть название";
+"Set time first" = "Сначала установите время";
+"Enter repeat interval" = "Укажите интервал повторения";
