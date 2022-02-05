@@ -7,42 +7,40 @@
 
 import SwiftUI
 
-struct DaySwitcherView: View {
+struct CalendarHeaderView: View {
     
-    var text: String
+    @Binding var date: Date
+    @Binding var isCalendarShown: Bool
     
     var body: some View {
-        HStack(spacing: 20) {
+        HStack {
             Button {
-                
-            } label: {
-                Image(systemName: "arrow.backward.circle")
-                    
-            }
+                withAnimation(.easeOut(duration: 0.1)) {
+                    date = isCalendarShown ? Calendar.current.date(byAdding: .month, value: -1, to: date)! : date.yesterday
+                }
+            } label: { Image(systemName: "arrow.backward.circle") }
             .buttonStyle(DaySwitcherButtonStyle())
-            Button(text) {
-                
+            Button(isCalendarShown ? date.monthAndYear : date.formattedForHeader) {
+                withAnimation(.easeOut(duration: 0.2)) {
+                    isCalendarShown.toggle()
+                }
             }
+            .frame(maxWidth: .infinity)
             .font(.system(.headline, design: .rounded))
             .foregroundColor(.black)
             Button {
-                
-            } label: {
-                Image(systemName: "arrow.forward.circle")
-            }
+                withAnimation(.easeOut(duration: 0.1)) {
+                    date = isCalendarShown ? Calendar.current.date(byAdding: .month, value: 1, to: date)! :  date.tomorrow
+                }
+            } label: { Image(systemName: "arrow.forward.circle") }
             .buttonStyle(DaySwitcherButtonStyle())
         }
-        
     }
-    
-    var onPressForward: () -> ()
-    
-    var onPressBack: () -> ()
 }
 
 struct DaySwitcherView_Previews: PreviewProvider {
     static var previews: some View {
-        DaySwitcherView(text: "May 1 2022", onPressForward: {}, onPressBack: {})
+        CalendarHeaderView(date: .constant(Date()), isCalendarShown: .constant(true))
             .previewLayout(.sizeThatFits)
     }
 }

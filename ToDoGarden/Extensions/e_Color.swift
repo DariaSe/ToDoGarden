@@ -33,13 +33,13 @@ extension Color {
     
     static var destructiveColor = Color(netHex: 0xbe4c48)
     
-    static var noColorColor = Color(netHex: 0xc7c7c7)
-    
     static var startGradientColor = Color(netHex: 0xF7F6F0)
     static var middleGradientColor = Color(netHex: 0xEBEAE0)
     static var endGradientColor = Color(netHex: 0xDEDDCF)
     
     struct AppColors {
+        //0
+        static let noColorColor = Color(netHex: 0xc7c7c7)
         //1
         static let orange = Color(netHex: 0xf5932a)
         //2
@@ -61,13 +61,11 @@ extension Color {
         //10
         static let lilac = Color(netHex: 0x813d6f)
         //11
-        static let gray = Color(netHex: 0x7b7b6a)
-        //12
         static let brown = Color(netHex: 0x4b2828)
      
     }
     
-    static var taskColors: [Color] { return [Color.AppColors.orange, Color.AppColors.brickRed, Color.AppColors.red, Color.AppColors.yellow, Color.AppColors.darkGreen, Color.AppColors.green, Color.AppColors.mint,  Color.AppColors.blue, Color.AppColors.purple, Color.AppColors.lilac, Color.AppColors.gray, Color.AppColors.brown] }
+    static var taskColors: [Color] { return [Color.AppColors.noColorColor, Color.AppColors.orange, Color.AppColors.brickRed, Color.AppColors.red, Color.AppColors.yellow, Color.AppColors.darkGreen, Color.AppColors.green, Color.AppColors.mint, Color.AppColors.blue, Color.AppColors.purple, Color.AppColors.lilac, Color.AppColors.brown] }
 
 }
 

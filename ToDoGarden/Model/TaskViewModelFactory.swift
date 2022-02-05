@@ -24,7 +24,7 @@ class TaskViewModelFactory {
         
     }
     
-    func singleTaskViewModel(from task: Task, date: Date) -> TaskViewModel? {
+    private func singleTaskViewModel(from task: Task, date: Date) -> TaskViewModel? {
         // if task is already executed
         if let executionDate = task.executionLog.first {
             return executionDate ==^ date ? task.viewModel(isDone: true, date: executionDate) : nil
@@ -35,7 +35,7 @@ class TaskViewModelFactory {
         }
     }
     
-    func recurrenceTaskViewModel(from task: Task, date: Date) -> TaskViewModel? {
+    private func recurrenceTaskViewModel(from task: Task, date: Date) -> TaskViewModel? {
         let startDate = task.startDate
         guard let recurrenceRule = task.recurrenceRule else { return nil }
         return date.matches(startDate: startDate, recurrenceRule: recurrenceRule) ? task.viewModel(isDone: false, date: date) : nil

@@ -7,14 +7,13 @@
 
 import Foundation
 
-struct TaskViewModel {
+struct TaskViewModel: Identifiable {
     
     var id: Int
     var orderID: Int
     var title: String
     var isDone: Bool
     var date: Date
-    var time: String?
     var color: Int?
     
     static var sample: [TaskViewModel] { [
@@ -25,7 +24,7 @@ struct TaskViewModel {
     ] }
     
     var dict: [String : Any] {
-        return ["id" : id, "orderID": orderID, "title" : title, "isDone" : isDone, "date" : date, "time" : time ?? "", "color" : color ?? 1]
+        return ["id" : id, "orderID": orderID, "title" : title, "isDone" : isDone, "date" : date, "color" : color ?? 1]
     }
     
     static func recreatedFromDict(_ dict: [String : Any]) -> TaskViewModel? {
@@ -34,9 +33,8 @@ struct TaskViewModel {
               let title = dict["title"] as? String,
               let isDone = dict["isDone"] as? Bool,
               let date = dict["date"] as? Date else { return nil }
-        let time = dict["time"] as? String
         let color = dict["color"] as? Int
-        return TaskViewModel(id: id, orderID: orderID, title: title, isDone: isDone, date: date, time: time, color: color)}
+        return TaskViewModel(id: id, orderID: orderID, title: title, isDone: isDone, date: date, color: color)}
 }
 
 extension TaskViewModel: Comparable {

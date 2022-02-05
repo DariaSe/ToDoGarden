@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct CalendarDay {
+struct CalendarDay: Identifiable {
+    var id = Int.random(in: 1...Int.max)
     var date: Date
     var belongsToMonth: Bool
     var isSelected: Bool
