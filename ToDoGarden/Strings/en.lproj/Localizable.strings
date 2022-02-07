@@ -6,6 +6,11 @@
   
 */
 
+"Tasks" = "Tasks";
+"Inventory" = "Inventory";
+"Quests" = "Quests";
+"Settings" = "Settings";
+
 "Today" = "Today";
 "Yesterday" = "Yesterday";
 "Tomorrow" = "Tomorrow";
@@ -61,3 +66,5 @@
 "A task should have a title" = "A task should have a title";
 "Set time first" = "Set time first";
 "Enter repeat interval" = "Enter repeat interval";
+
+"Oops! Something went wrong.\nPlease try again." = "Oops! Something went wrong.\nPlease try again.";

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA3C4F3527B127420027B53E /* TaskDetailDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C4F3427B127420027B53E /* TaskDetailDateView.swift */; };
+		DA3C4F3727B127530027B53E /* TaskDetailRecurrenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C4F3627B127530027B53E /* TaskDetailRecurrenceView.swift */; };
+		DA3C4F3927B1276D0027B53E /* TaskDetailNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C4F3827B1276D0027B53E /* TaskDetailNotesView.swift */; };
+		DA3C4F3B27B127800027B53E /* TaskDetailNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C4F3A27B127800027B53E /* TaskDetailNotificationView.swift */; };
+		DA3C4F3D27B1278B0027B53E /* TaskDetailColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C4F3C27B1278B0027B53E /* TaskDetailColorView.swift */; };
+		DA3C4F3F27B14B140027B53E /* TaskListDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C4F3E27B14B140027B53E /* TaskListDateView.swift */; };
+		DA3C4F4127B16EB70027B53E /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C4F4027B16EB70027B53E /* RadioButton.swift */; };
+		DA3C4F4327B176BA0027B53E /* DropdownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C4F4227B176BA0027B53E /* DropdownButton.swift */; };
+		DA3C4F4C27B17D0F0027B53E /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DA3C4F4A27B17D0F0027B53E /* Localizable.stringsdict */; };
 		DA5110CE27A7F9E50019BD81 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5110CD27A7F9E50019BD81 /* AppState.swift */; };
 		DA5110D027A7FC360019BD81 /* TasksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5110CF27A7FC360019BD81 /* TasksInteractor.swift */; };
 		DA520A3527997FA80075D92F /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA520A3427997FA80075D92F /* TaskViewModel.swift */; };
@@ -42,6 +51,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA3C4F3427B127420027B53E /* TaskDetailDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailDateView.swift; sourceTree = "<group>"; };
+		DA3C4F3627B127530027B53E /* TaskDetailRecurrenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailRecurrenceView.swift; sourceTree = "<group>"; };
+		DA3C4F3827B1276D0027B53E /* TaskDetailNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailNotesView.swift; sourceTree = "<group>"; };
+		DA3C4F3A27B127800027B53E /* TaskDetailNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailNotificationView.swift; sourceTree = "<group>"; };
+		DA3C4F3C27B1278B0027B53E /* TaskDetailColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailColorView.swift; sourceTree = "<group>"; };
+		DA3C4F3E27B14B140027B53E /* TaskListDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListDateView.swift; sourceTree = "<group>"; };
+		DA3C4F4027B16EB70027B53E /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		DA3C4F4227B176BA0027B53E /* DropdownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownButton.swift; sourceTree = "<group>"; };
+		DA3C4F4B27B17D0F0027B53E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DA3C4F4D27B17D1A0027B53E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		DA5110CD27A7F9E50019BD81 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		DA5110CF27A7FC360019BD81 /* TasksInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksInteractor.swift; sourceTree = "<group>"; };
 		DA520A3427997FA80075D92F /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
@@ -107,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				DA598C4D27AEEEEB0096CFC7 /* CheckboxButton.swift */,
+				DA3C4F4027B16EB70027B53E /* RadioButton.swift */,
+				DA3C4F4227B176BA0027B53E /* DropdownButton.swift */,
 			);
 			path = "Reusable Views";
 			sourceTree = "<group>";
@@ -172,7 +193,13 @@
 			children = (
 				DA6BA4ED2794189F009A30C5 /* CalendarHeaderView.swift */,
 				DA6BA4EF2794229B009A30C5 /* CalendarView.swift */,
+				DA3C4F3E27B14B140027B53E /* TaskListDateView.swift */,
 				DA6E7A3A2798038500495D26 /* TaskCell.swift */,
+				DA3C4F3427B127420027B53E /* TaskDetailDateView.swift */,
+				DA3C4F3627B127530027B53E /* TaskDetailRecurrenceView.swift */,
+				DA3C4F3A27B127800027B53E /* TaskDetailNotificationView.swift */,
+				DA3C4F3C27B1278B0027B53E /* TaskDetailColorView.swift */,
+				DA3C4F3827B1276D0027B53E /* TaskDetailNotesView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -229,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				DA6E7A2F2797FF9800495D26 /* Strings.swift */,
+				DA3C4F4A27B17D0F0027B53E /* Localizable.stringsdict */,
 				DA6E7A2D2797FF5F00495D26 /* Localizable.strings */,
 				DA6E7A37279800C200495D26 /* Strings Game.swift */,
 				DA6E7A352798008400495D26 /* Game.strings */,
@@ -311,6 +339,7 @@
 				DA6BA4D42792F215009A30C5 /* Preview Assets.xcassets in Resources */,
 				DA6E7A2B2797FF5F00495D26 /* Localizable.strings in Resources */,
 				DA6E7A332798008400495D26 /* Game.strings in Resources */,
+				DA3C4F4C27B17D0F0027B53E /* Localizable.stringsdict in Resources */,
 				DA6BA4D12792F215009A30C5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,10 +352,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA53EF9C279A97B200F03B8B /* TaskDetailView.swift in Sources */,
+				DA3C4F3527B127420027B53E /* TaskDetailDateView.swift in Sources */,
 				DA56245F2799602600878ED1 /* FontsPreview.swift in Sources */,
 				DA6BA4EC2794176F009A30C5 /* SettingsView.swift in Sources */,
 				DA5110CE27A7F9E50019BD81 /* AppState.swift in Sources */,
+				DA3C4F3F27B14B140027B53E /* TaskListDateView.swift in Sources */,
+				DA3C4F3D27B1278B0027B53E /* TaskDetailColorView.swift in Sources */,
+				DA3C4F3927B1276D0027B53E /* TaskDetailNotesView.swift in Sources */,
+				DA3C4F3B27B127800027B53E /* TaskDetailNotificationView.swift in Sources */,
 				DA6E7A302797FF9800495D26 /* Strings.swift in Sources */,
+				DA3C4F3727B127530027B53E /* TaskDetailRecurrenceView.swift in Sources */,
 				DA520A592799846F0075D92F /* e_Date.swift in Sources */,
 				DA6BA4EE2794189F009A30C5 /* CalendarHeaderView.swift in Sources */,
 				DA6E7A3B2798038500495D26 /* TaskCell.swift in Sources */,
@@ -336,8 +371,10 @@
 				DA6BA4DB2792F2CC009A30C5 /* MainView.swift in Sources */,
 				DA520A4F279984430075D92F /* CalendarDay.swift in Sources */,
 				DA6BA4F02794229B009A30C5 /* CalendarView.swift in Sources */,
+				DA3C4F4327B176BA0027B53E /* DropdownButton.swift in Sources */,
 				DA520A5A2799846F0075D92F /* e_Int.swift in Sources */,
 				DA6BA4EA27941762009A30C5 /* QuestsView.swift in Sources */,
+				DA3C4F4127B16EB70027B53E /* RadioButton.swift in Sources */,
 				DA5110D027A7FC360019BD81 /* TasksInteractor.swift in Sources */,
 				DA520A582799846F0075D92F /* e_Calendar.swift in Sources */,
 				DA6E7A38279800C200495D26 /* Strings Game.swift in Sources */,
@@ -356,6 +393,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		DA3C4F4A27B17D0F0027B53E /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA3C4F4B27B17D0F0027B53E /* en */,
+				DA3C4F4D27B17D1A0027B53E /* ru */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
 		DA6E7A2D2797FF5F00495D26 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -6,6 +6,11 @@
   
 */
 
+"Tasks" = "Задачи";
+"Inventory" = "Инвентарь";
+"Quests" = "Квесты";
+"Settings" = "Настройки";
+
 "Today" = "Сегодня";
 "Yesterday" = "Вчера";
 "Tomorrow" = "Завтра";
@@ -61,3 +66,5 @@
 "A task should have a title" = "У задачи должно быть название";
 "Set time first" = "Сначала установите время";
 "Enter repeat interval" = "Укажите интервал повторения";
+
+"Oops! Something went wrong.\nPlease try again." = "Ой! Что-то пошло не так.\nПопробуйте ещё раз.";

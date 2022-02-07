@@ -43,8 +43,8 @@ struct CalendarView: View {
                         .frame(minWidth: 40, idealWidth: 50, maxWidth: 60, minHeight: 40, idealHeight: 50, maxHeight: 60)
                         .onTapGesture {
                             date = calendarDay.date
-                            withAnimation(.easeOut(duration: 0.2).delay(0.2)) {
-                                isShown.toggle()
+                            withAnimation(.linear(duration: 0.2).delay(0.2)) {
+                                isShown = false
                             }
                         }
                     }

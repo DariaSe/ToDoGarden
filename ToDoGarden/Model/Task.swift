@@ -31,7 +31,7 @@ class Task: Orderable, Identifiable, ObservableObject {
         } while date <=^ Date()
         return taskModels.count
     }
-    var notificationTime: String?
+    var notificationDate: Date?
     var color: Int?
     var notes: String = ""
     

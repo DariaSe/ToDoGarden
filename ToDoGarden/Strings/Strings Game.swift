@@ -9,8 +9,6 @@ import Foundation
 
 extension Strings {
     
-    static let inventory = "Inventory".localizedGame
-    
     static let tomato = "Tomato".localizedGame
     static let strawberry = "Strawberry".localizedGame
     static let apple = "Apple".localizedGame

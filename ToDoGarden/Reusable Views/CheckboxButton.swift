@@ -14,7 +14,9 @@ struct CheckboxButton: View {
     
     var body: some View {
         Button {
-            isOn.toggle()
+            withAnimation(.easeOut(duration: 0.2)) {
+                isOn.toggle()
+            }
         } label: {
             Image(systemName: isOn ? "checkmark.square" : "square")
         }
@@ -34,7 +36,7 @@ struct CheckboxButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-            .font(.headline)
+            .font(.title2)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .foregroundColor(.buttonColor)
             .opacity(configuration.isPressed ? 0.9 : 1)

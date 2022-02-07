@@ -25,6 +25,11 @@ extension String {
 
 struct Strings {
     
+    static let tasks = "Tasks".localized
+    static let inventory = "Inventory".localized
+    static let quests = "Quests".localized
+    static let settings = "Settings".localized
+    
     static let arrowDown = "\u{25BC}"
     static let arrowUp = "\u{25B2}"
     static let cross = "\u{00D7}"
@@ -90,5 +95,7 @@ struct Strings {
     static let emptyTitleAlert = "A task should have a title".localized
     static let setTimeAlert = "Set time first".localized
     static let enterInterval = "Enter repeat interval".localized
+    
+    static let errorMessage = "Oops! Something went wrong.\nPlease try again.".localized
     
 }

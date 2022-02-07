@@ -17,7 +17,7 @@ struct MainView: View {
         TabView {
             TaskListView()
                 .tabItem {
-                    Label("Tasks", systemImage: "list.bullet")
+                    Label(Strings.tasks, systemImage: "list.bullet")
                 }
             InventoryView()
                 .tabItem {
@@ -25,11 +25,11 @@ struct MainView: View {
                 }
             QuestsView()
                 .tabItem {
-                    Label("Quests", systemImage: "lasso.and.sparkles")
+                    Label(Strings.quests, systemImage: "lasso.and.sparkles")
                 }
             SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "gearshape")
+                    Label(Strings.settings, systemImage: "gearshape")
                 }
         }
         .accentColor(.black)

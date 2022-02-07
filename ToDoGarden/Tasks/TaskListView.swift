@@ -20,26 +20,27 @@ struct TaskListView: View {
     @State private var selectedTask: Task?
     
     var body: some View {
-        VStack {
-            ZStack {
-                CalendarHeaderView(date: $date, isCalendarShown: $isCalendarShown)
-                    .frame(maxWidth: UIScreen.main.bounds.width - 90)
-                HStack {
-                    Spacer()
-                    Button {
-                        addTask()
-                    } label: {
-                        Image(systemName: "plus")
-                            .foregroundColor(.black)
-                            .font(.system(.headline, design: .rounded))
+        ScrollView {
+            VStack {
+                
+                ZStack {
+                    CalendarHeaderView(date: $date, isCalendarShown: $isCalendarShown)
+                        .frame(maxWidth: UIScreen.main.bounds.width - 90)
+                    HStack {
+                        Spacer()
+                        Button {
+                            addTask()
+                        } label: {
+                            Image(systemName: "plus")
+                                .foregroundColor(.black)
+                                .font(.system(.headline, design: .rounded))
+                        }
+                        .frame(width: 60, height: 60)
                     }
-                    .frame(width: 60, height: 60)
                 }
-            }
-            if isCalendarShown {
-                CalendarView(date: $date, isShown: $isCalendarShown)
-            }
-            ScrollView {
+                if isCalendarShown {
+                    CalendarView(date: $date, isShown: $isCalendarShown)
+                }
                 LazyVStack {
                     ForEach(appState.tasks) { task in
                         if let viewModel = taskViewModelFactory.makeTaskViewModel(from: task, date: date) {
@@ -63,7 +64,6 @@ struct TaskListView: View {
                 }
                 .padding()
             }
-            
         }
         .sheet(item: $selectedTask, onDismiss: nil, content: { task in
             TaskDetailView(interactor: interactor, task: task, isNew: task.title.isEmpty)

@@ -15,11 +15,11 @@ struct CalendarHeaderView: View {
     var body: some View {
         HStack {
             Button {
-                withAnimation(.easeOut(duration: 0.1)) {
+                withAnimation(.easeOut(duration: 0.2)) {
                     date = isCalendarShown ? Calendar.current.date(byAdding: .month, value: -1, to: date)! : date.yesterday
                 }
             } label: { Image(systemName: "arrow.backward.circle") }
-            .buttonStyle(DaySwitcherButtonStyle())
+            .buttonStyle(CalenderHeaderButtonStyle())
             Button(isCalendarShown ? date.monthAndYear : date.formattedForHeader) {
                 withAnimation(.easeOut(duration: 0.2)) {
                     isCalendarShown.toggle()
@@ -29,11 +29,11 @@ struct CalendarHeaderView: View {
             .font(.system(.headline, design: .rounded))
             .foregroundColor(.black)
             Button {
-                withAnimation(.easeOut(duration: 0.1)) {
+                withAnimation(.easeOut(duration: 0.2)) {
                     date = isCalendarShown ? Calendar.current.date(byAdding: .month, value: 1, to: date)! :  date.tomorrow
                 }
             } label: { Image(systemName: "arrow.forward.circle") }
-            .buttonStyle(DaySwitcherButtonStyle())
+            .buttonStyle(CalenderHeaderButtonStyle())
         }
     }
 }
@@ -46,7 +46,7 @@ struct DaySwitcherView_Previews: PreviewProvider {
 }
 
 
-struct DaySwitcherButtonStyle: ButtonStyle {
+struct CalenderHeaderButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
