@@ -64,7 +64,7 @@
 "Delete task" = "Delete task";
 
 "A task should have a title" = "A task should have a title";
-"Set time first" = "Set time first";
 "Enter repeat interval" = "Enter repeat interval";
+"Select weekdays" = "Select weekdays";
 
 "Oops! Something went wrong.\nPlease try again." = "Oops! Something went wrong.\nPlease try again.";

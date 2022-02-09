@@ -48,6 +48,7 @@
 		DA6E7A332798008400495D26 /* Game.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6E7A352798008400495D26 /* Game.strings */; };
 		DA6E7A38279800C200495D26 /* Strings Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E7A37279800C200495D26 /* Strings Game.swift */; };
 		DA6E7A3B2798038500495D26 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E7A3A2798038500495D26 /* TaskCell.swift */; };
+		DA9BA31427B26578006C46F4 /* DropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA31327B26578006C46F4 /* DropdownMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		DA6E7A362798008600495D26 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Game.strings; sourceTree = "<group>"; };
 		DA6E7A37279800C200495D26 /* Strings Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings Game.swift"; sourceTree = "<group>"; };
 		DA6E7A3A2798038500495D26 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		DA9BA31327B26578006C46F4 /* DropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				DA598C4D27AEEEEB0096CFC7 /* CheckboxButton.swift */,
 				DA3C4F4027B16EB70027B53E /* RadioButton.swift */,
 				DA3C4F4227B176BA0027B53E /* DropdownButton.swift */,
+				DA9BA31327B26578006C46F4 /* DropdownMenu.swift */,
 			);
 			path = "Reusable Views";
 			sourceTree = "<group>";
@@ -256,8 +259,8 @@
 			isa = PBXGroup;
 			children = (
 				DA6E7A2F2797FF9800495D26 /* Strings.swift */,
-				DA3C4F4A27B17D0F0027B53E /* Localizable.stringsdict */,
 				DA6E7A2D2797FF5F00495D26 /* Localizable.strings */,
+				DA3C4F4A27B17D0F0027B53E /* Localizable.stringsdict */,
 				DA6E7A37279800C200495D26 /* Strings Game.swift */,
 				DA6E7A352798008400495D26 /* Game.strings */,
 			);
@@ -373,6 +376,7 @@
 				DA6BA4F02794229B009A30C5 /* CalendarView.swift in Sources */,
 				DA3C4F4327B176BA0027B53E /* DropdownButton.swift in Sources */,
 				DA520A5A2799846F0075D92F /* e_Int.swift in Sources */,
+				DA9BA31427B26578006C46F4 /* DropdownMenu.swift in Sources */,
 				DA6BA4EA27941762009A30C5 /* QuestsView.swift in Sources */,
 				DA3C4F4127B16EB70027B53E /* RadioButton.swift in Sources */,
 				DA5110D027A7FC360019BD81 /* TasksInteractor.swift in Sources */,

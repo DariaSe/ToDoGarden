@@ -93,8 +93,8 @@ struct Strings {
     static let deleteTask = "Delete task".localized
     
     static let emptyTitleAlert = "A task should have a title".localized
-    static let setTimeAlert = "Set time first".localized
     static let enterInterval = "Enter repeat interval".localized
+    static let selectWeekdays = "Select weekdays".localized
     
     static let errorMessage = "Oops! Something went wrong.\nPlease try again.".localized
     

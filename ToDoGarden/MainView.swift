@@ -15,7 +15,7 @@ struct MainView: View {
     
     var body: some View {
         TabView {
-            TaskListView()
+            TaskListView(interactor: TasksInteractor())
                 .tabItem {
                     Label(Strings.tasks, systemImage: "list.bullet")
                 }

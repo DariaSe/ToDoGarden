@@ -41,11 +41,13 @@ extension Date {
     }
     
     func matches(startDate: Date, recurrenceRule: RecurrenceRule) -> Bool {
-        if let weekdays = recurrenceRule.weekdays {
+        if !recurrenceRule.weekdays.isEmpty {
             let dateWeekday = Calendar.current.ordinality(of: .weekday, in: .weekOfYear, for: self)!
-            return weekdays.contains(dateWeekday) && (startDate <=^ self)
+            return recurrenceRule.weekdays.contains(dateWeekday) && (startDate <=^ self)
         }
-        if let recurrenceFrequency = recurrenceRule.recurrenceFrequency, let interval = recurrenceRule.interval {
+        else {
+        if let recurrenceFrequency = recurrenceRule.recurrenceFrequency, recurrenceRule.interval != 0 {
+            let interval = recurrenceRule.interval
             let dayInSeconds = 86400
             var dateToIncrement = startDate
             let startDateDay = Calendar.current.component(.day, from: startDate)
@@ -82,5 +84,6 @@ extension Date {
             return dateToIncrement ==^ self
         }
         else { return false }
+        }
     }
 }

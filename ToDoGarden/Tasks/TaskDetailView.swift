@@ -17,26 +17,38 @@ struct TaskDetailView: View {
     var isNew: Bool
     
     @State private var isRepeating: Bool = true
-    @State private var temporaryRecurrenceRule: RecurrenceRule?
+    @StateObject var temporaryRecurrenceRule: RecurrenceRule
     
     @State private var isNotificationOn: Bool = false
     @State private var notificationDate: Date = Date()
     
     @State private var isColorSelected: Bool = false
     
+    @State private var isShowingValidationWarning: Bool = false
     @State private var isShowingDeletionWarning: Bool = false
     @State private var isShowingActivityIndicator: Bool = false
     @State private var isShowingErrorMessage: Bool = false
-    
-    @State private var recurrenceOptionSelected: Int = 0
     
     var body: some View {
         ScrollView {
             ZStack {
                 VStack(spacing: 20) {
-                    // MARK: - Header
-                    Text(isNew ? Strings.newTask : Strings.task)
-                        .font(.system(.title2, design: .rounded))
+                    // MARK: - Header and close button
+                    ZStack {
+                        Text(isNew ? Strings.newTask : Strings.task)
+                            .font(.system(.title2, design: .rounded))
+                        HStack {
+                            Spacer()
+                            Button {
+                                presentationMode.wrappedValue.dismiss()
+                            } label: {
+                                Image(systemName: "xmark")
+                                    .foregroundColor(.buttonColor)
+                                    .font(.system(.headline, design: .rounded))
+                            }
+                            .frame(width: 60, height: 60)
+                        }
+                    }
                     // MARK: - Title
                     TextField(Strings.taskTitle, text: $task.title)
                         .font(.system(.body, design: .rounded))
@@ -45,38 +57,7 @@ struct TaskDetailView: View {
                     // MARK: - Start date
                     TaskDetailDateView(startDate: $task.startDate, isRecurring: task.recurrenceRule != nil)
                     // MARK: - Recurrence
-                    VStack {
-                        HStack {
-                            CheckboxButton(isOn: $isRepeating)
-                            Text(Strings.repeatt)
-                                .font(.system(.body, design: .rounded))
-                                .opacity(isRepeating ? 1 : 0.8)
-                            Spacer()
-                        }
-                        if isRepeating {
-                            VStack {
-                                HStack {
-                                    RadioButton(tag: 0, selectedTag: $recurrenceOptionSelected)
-                                    Menu {
-                                        Button {
-//                                            style = 0
-                                        } label: {
-                                            Text("Linear")
-                                        }
-                                        Button {
-//                                            style = 1
-                                        } label: {
-                                            Text("Radial")
-                                        }
-                                    } label: {
-                                        DropdownButton(text: .constant("Daily"))
-                                    }
-                                    Spacer()
-                                }
-                            }
-                            .padding(.leading, 40)
-                        }
-                    }
+                    TaskDetailRecurrenceView(isRepeating: $isRepeating, recurrenceRule: task.recurrenceRule ?? temporaryRecurrenceRule)
                     // MARK: - Notification
                     TaskDetailNotificationView(isNotificationOn: $isNotificationOn, notificationDate: $notificationDate)
                     // MARK: - Color
@@ -86,7 +67,10 @@ struct TaskDetailView: View {
                     // MARK: - Save button
                     VStack {
                         Button {
-                            saveTask()
+                            isShowingValidationWarning = task.validationWarning != nil
+                            if !isShowingValidationWarning {
+                                saveTask()
+                            }
                         } label: {
                             ZStack {
                                 Capsule()
@@ -97,6 +81,9 @@ struct TaskDetailView: View {
                                     .foregroundColor(Color.white)
                             }
                         }
+                        .alert(isPresented: $isShowingValidationWarning, content: {
+                            Alert(title: Text(task.validationWarning ?? ""), dismissButton: .default(Text("OK")))
+                        })
                         .frame(width: 160, height: 60)
                         // MARK: - Delete button
                         if !isNew {
@@ -149,7 +136,6 @@ struct TaskDetailView: View {
         .onAppear {
             UITextView.appearance().backgroundColor = .clear
             isRepeating = task.recurrenceRule != nil
-            temporaryRecurrenceRule = task.recurrenceRule
             isNotificationOn = task.notificationDate != nil
             notificationDate = task.notificationDate ?? Date()
             isColorSelected = task.color != nil
@@ -157,9 +143,19 @@ struct TaskDetailView: View {
     }
     
     func saveTask() {
+        isShowingActivityIndicator = true
+        task.recurrenceRule = isRepeating ? temporaryRecurrenceRule : nil
         task.notificationDate = isNotificationOn ? notificationDate : nil
         task.color = isColorSelected ? task.color : nil
-        interactor.save(task: task)
+        interactor.save(task: task) { success in
+            isShowingActivityIndicator = false
+            if success {
+                presentationMode.wrappedValue.dismiss()
+            }
+            else {
+                showError()
+            }
+        }
     }
     
     func showError() {
@@ -177,8 +173,8 @@ struct TaskDetailView: View {
 struct TaskDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TaskDetailView(interactor: TasksInteractor(), task: Task(orderID: 1, title: "Some task", recurrenceRule: RecurrenceRule.sample1,  color: 2), isNew: false)
-            TaskDetailView(interactor: TasksInteractor(), task: Task(orderID: 1, title: "Some task", recurrenceRule: nil,  color: 2), isNew: true)
+            TaskDetailView(interactor: TasksInteractor(), task: Task(orderID: 1, title: "Some task", recurrenceRule: RecurrenceRule.sample1,  color: 2), isNew: false, temporaryRecurrenceRule: RecurrenceRule.sample1)
+            TaskDetailView(interactor: TasksInteractor(), task: Task(orderID: 1, title: "Some task", recurrenceRule: RecurrenceRule.sample3,  color: 2), isNew: true, temporaryRecurrenceRule: RecurrenceRule.sample3)
                 .previewDevice("iPhone 8")
             
         }

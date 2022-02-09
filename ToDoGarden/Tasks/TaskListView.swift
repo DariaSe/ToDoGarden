@@ -11,7 +11,7 @@ struct TaskListView: View {
     
     @EnvironmentObject var appState: AppState
     
-    let interactor = TasksInteractor()
+    var interactor: TasksInteractor
     let taskViewModelFactory = TaskViewModelFactory()
     
     @State private var isCalendarShown: Bool = false
@@ -22,7 +22,6 @@ struct TaskListView: View {
     var body: some View {
         ScrollView {
             VStack {
-                
                 ZStack {
                     CalendarHeaderView(date: $date, isCalendarShown: $isCalendarShown)
                         .frame(maxWidth: UIScreen.main.bounds.width - 90)
@@ -51,7 +50,7 @@ struct TaskListView: View {
                                          text: task.title,
                                          tasksDone: task.tasksCompleted,
                                          tasksTotal: task.tasksTotal,
-                                         notificationTime: nil,
+                                         notificationTime: task.notificationTime,
                                          isDone: viewModel.isDone,
                                          onTapDone: {
                                     interactor.setCompletedOrCancel(taskID: task.id)
@@ -66,7 +65,7 @@ struct TaskListView: View {
             }
         }
         .sheet(item: $selectedTask, onDismiss: nil, content: { task in
-            TaskDetailView(interactor: interactor, task: task, isNew: task.title.isEmpty)
+            TaskDetailView(interactor: interactor, task: task, isNew: task.title.isEmpty, temporaryRecurrenceRule: task.recurrenceRule ?? RecurrenceRule.zero)
         })
         .background(Color.backgroundColor
                         .edgesIgnoringSafeArea(.all))
@@ -82,9 +81,9 @@ struct TaskListView: View {
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TaskListView()
+            TaskListView(interactor: TasksInteractor())
                 .environmentObject(AppState())
-            TaskListView()
+            TaskListView(interactor: TasksInteractor())
                 .environmentObject(AppState())
                 .previewDevice("iPhone 8")
         }

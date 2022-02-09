@@ -16,14 +16,17 @@ class TasksInteractor {
         print("Triggered")
     }
     
-    func save(task: Task) {
-        
+    func save(task: Task, completion: @escaping (Bool) -> Void) {
+        // api call
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            completion(true)
+        }
     }
     
     func delete(task: Task, completion: @escaping (Bool) -> Void) {
         // api call
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            completion(false)
+            completion(true)
         }
     }
 }

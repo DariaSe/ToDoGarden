@@ -8,10 +8,10 @@
 import Foundation
 import SwiftUI
 
-class Task: Orderable, Identifiable, ObservableObject {
+class Task: Codable, Orderable, Identifiable, ObservableObject {
     
     var id: Int = Int.random(in: 1...Int.max)
-    var orderID: Int = 0
+    var orderID: Int
     var title: String = ""
     @Published var startDate: Date = Date()
     var recurrenceRule: RecurrenceRule?
@@ -32,6 +32,13 @@ class Task: Orderable, Identifiable, ObservableObject {
         return taskModels.count
     }
     var notificationDate: Date?
+    var notificationTime: String? {
+        guard let notificationDate = notificationDate else { return nil }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        return formatter.string(from: notificationDate)
+    }
     var color: Int?
     var notes: String = ""
     
@@ -59,6 +66,21 @@ class Task: Orderable, Identifiable, ObservableObject {
         }
     }
     
+    var validationWarning: String? {
+        if title.isEmpty {
+            return Strings.emptyTitleAlert
+        }
+        if let recurrenceRule = recurrenceRule, recurrenceRule.recurrenceType == .withIntervals, recurrenceRule.interval == 0 {
+            return Strings.enterInterval
+        }
+        if let recurrenceRule = recurrenceRule, recurrenceRule.recurrenceType == .onWeekdays, recurrenceRule.weekdays.isEmpty {
+            return Strings.selectWeekdays
+        }
+        else {
+            return nil
+        }
+    }
+    
     static func newTask(orderID: Int) -> Task {
         Task(orderID: orderID, title: "", recurrenceRule: nil, color: 0)
     }
@@ -70,22 +92,60 @@ class Task: Orderable, Identifiable, ObservableObject {
         Task(orderID: 4, title: "Task 4", recurrenceRule: nil, color: 2)
     ] }
     
-//    //MARK: Decoding and encoding
-//
-//    static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//    static let archiveURL = documentsDirectory.appendingPathComponent("tasks").appendingPathExtension("plist")
-//
-//    static func saveToFile(tasks: [Task]) {
-//        let propertyListEncoder = PropertyListEncoder()
-//        let encodedTasks = try? propertyListEncoder.encode(tasks)
-//        try? encodedTasks?.write(to: archiveURL, options: .noFileProtection)
-//    }
-//
-//    static func loadFromFile() -> [Task]? {
-//        let propertyListDecoder = PropertyListDecoder()
-//        guard let retrievedTasksData = try? Data(contentsOf: archiveURL) else { return nil }
-//        return try? propertyListDecoder.decode(Array<Task>.self, from: retrievedTasksData)
-//    }
+    //MARK: Decoding and encoding
+    
+    private enum CodingKeys : String, CodingKey {
+        case id
+        case orderID = "order_id"
+        case title
+        case startDate = "start_date"
+        case executionLog = "execution_log"
+        case recurrenceRule = "recurrence_rule"
+        case notificationDate = "notification_date"
+        case color
+        case notes
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        orderID = try values.decode(Int.self, forKey: .orderID)
+        title = try values.decode(String.self, forKey: .title)
+        startDate = try values.decode(Date.self, forKey: .startDate)
+        executionLog = try values.decode([Date].self, forKey: .executionLog)
+        recurrenceRule = try values.decode(RecurrenceRule?.self, forKey: .recurrenceRule)
+        notificationDate = try values.decode(Date?.self, forKey: .notificationDate)
+        color = try values.decode(Int?.self, forKey: .color)
+        notes = try values.decode(String.self, forKey: .notes)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(orderID, forKey: .orderID)
+        try container.encode(title, forKey: .title)
+        try container.encode(startDate, forKey: .startDate)
+        try container.encode(executionLog, forKey: .executionLog)
+        try container.encode(recurrenceRule, forKey: .recurrenceRule)
+        try container.encode(notificationDate, forKey: .notificationDate)
+        try container.encode(color, forKey: .color)
+        try container.encode(notes, forKey: .notes)
+    }
+    
+    static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let archiveURL = documentsDirectory.appendingPathComponent("tasks").appendingPathExtension("plist")
+    
+    static func saveToFile(tasks: [Task]) {
+        let propertyListEncoder = PropertyListEncoder()
+        let encodedTasks = try? propertyListEncoder.encode(tasks)
+        try? encodedTasks?.write(to: archiveURL, options: .noFileProtection)
+    }
+    
+    static func loadFromFile() -> [Task]? {
+        let propertyListDecoder = PropertyListDecoder()
+        guard let retrievedTasksData = try? Data(contentsOf: archiveURL) else { return nil }
+        return try? propertyListDecoder.decode(Array<Task>.self, from: retrievedTasksData)
+    }
 }
 
 extension Task: Comparable {

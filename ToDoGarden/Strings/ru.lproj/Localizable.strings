@@ -64,7 +64,7 @@
 "Delete task" = "Удалить задачу";
 
 "A task should have a title" = "У задачи должно быть название";
-"Set time first" = "Сначала установите время";
 "Enter repeat interval" = "Укажите интервал повторения";
+"Select weekdays" = "Выберите дни недели";
 
 "Oops! Something went wrong.\nPlease try again." = "Ой! Что-то пошло не так.\nПопробуйте ещё раз.";
