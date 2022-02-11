@@ -10,11 +10,11 @@ import SwiftUI
 @main
 struct ToDoGardenApp: App {
     
-    var appState: AppState = AppState()
+    let appState: AppState = AppState()
     
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(tasksInteractor: TasksInteractor(appState: appState))
                 .environmentObject(appState)
         }
     }

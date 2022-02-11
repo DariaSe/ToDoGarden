@@ -9,15 +9,25 @@ import SwiftUI
 
 struct TaskListView: View {
     
+    enum ViewState {
+        case idle
+        case noActive
+        case loading
+        case loadingError
+    }
+    
     @EnvironmentObject var appState: AppState
     
     var interactor: TasksInteractor
-    let taskViewModelFactory = TaskViewModelFactory()
+    
+    @Binding var date: Date
     
     @State private var isCalendarShown: Bool = false
-    @State var date = Date()
     
     @State private var selectedTask: Task?
+    
+    var tasksActive: [TaskViewModel] { appState.tasksActive }
+    var tasksCompleted: [TaskViewModel] { appState.tasksCompleted }
     
     var body: some View {
         ScrollView {
@@ -40,32 +50,49 @@ struct TaskListView: View {
                 if isCalendarShown {
                     CalendarView(date: $date, isShown: $isCalendarShown)
                 }
-                LazyVStack {
-                    ForEach(appState.tasks) { task in
-                        if let viewModel = taskViewModelFactory.makeTaskViewModel(from: task, date: date) {
+                if tasksActive.isEmpty {
+                    Text("No active tasks")
+                }
+                else {
+                    VStack {
+                        ForEach(tasksActive) { viewModel in
+                                Button {
+                                    selectedTask = viewModel.task.copy()
+                                } label: {
+                                    TaskCell(viewModel: viewModel) {
+                                        interactor.setCompletedOrCancel(taskID: viewModel.id, date: date)
+                                    }
+                                }
+                                .frame(height: 76)
+                                .buttonStyle(TaskListButtonStyle())
+                            }
+                    }
+                    .padding()
+                }
+                if !tasksCompleted.isEmpty {
+                    Divider().padding(.horizontal, 40)
+                }
+                VStack {
+                    ForEach(tasksCompleted) { viewModel in
                             Button {
-                                selectedTask = task
+                                selectedTask = viewModel.task.copy()
                             } label: {
-                                TaskCell(color: Color.taskColors[task.color ?? 0],
-                                         text: task.title,
-                                         tasksDone: task.tasksCompleted,
-                                         tasksTotal: task.tasksTotal,
-                                         notificationTime: task.notificationTime,
-                                         isDone: viewModel.isDone,
-                                         onTapDone: {
-                                    interactor.setCompletedOrCancel(taskID: task.id)
-                                })
+                                TaskCell(viewModel: viewModel) {
+                                    interactor.setCompletedOrCancel(taskID: viewModel.id, date: date)
+                                }
                             }
                             .frame(height: 76)
                             .buttonStyle(TaskListButtonStyle())
-                        }
                     }
                 }
                 .padding()
             }
         }
+        .onAppear {
+            interactor.getTasks()
+        }
         .sheet(item: $selectedTask, onDismiss: nil, content: { task in
-            TaskDetailView(interactor: interactor, task: task, isNew: task.title.isEmpty, temporaryRecurrenceRule: task.recurrenceRule ?? RecurrenceRule.zero)
+            TaskDetailView(interactor: interactor, task: task)
         })
         .background(Color.backgroundColor
                         .edgesIgnoringSafeArea(.all))
@@ -81,9 +108,9 @@ struct TaskListView: View {
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TaskListView(interactor: TasksInteractor())
+            TaskListView(interactor: TasksInteractor(appState: AppState()), date: .constant(Date()))
                 .environmentObject(AppState())
-            TaskListView(interactor: TasksInteractor())
+            TaskListView(interactor: TasksInteractor(appState: AppState()), date: .constant(Date()))
                 .environmentObject(AppState())
                 .previewDevice("iPhone 8")
         }

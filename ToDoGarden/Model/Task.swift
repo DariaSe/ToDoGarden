@@ -11,27 +11,26 @@ import SwiftUI
 class Task: Codable, Orderable, Identifiable, ObservableObject {
     
     var id: Int = Int.random(in: 1...Int.max)
-    var orderID: Int
-    var title: String = ""
+    @Published var orderID: Int
+    @Published var title: String = ""
     @Published var startDate: Date = Date()
-    var recurrenceRule: RecurrenceRule?
-    var executionLog: [Date] = []
+    @Published var recurrenceRule: RecurrenceRule?
+    @Published var executionLog: [Date] = []
     var tasksCompleted: Int {
         return executionLog.count
     }
     var tasksTotal: Int {
         var date = startDate
         var taskModels = [TaskViewModel]()
-        let factory = TaskViewModelFactory()
         repeat {
-            if let taskModel = factory.makeTaskViewModel(from: self, date: date) {
+            if let taskModel = self.taskViewModel(date: date) {
                 taskModels.append(taskModel)
             }
             date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
         } while date <=^ Date()
         return taskModels.count
     }
-    var notificationDate: Date?
+    @Published var notificationDate: Date?
     var notificationTime: String? {
         guard let notificationDate = notificationDate else { return nil }
         let formatter = DateFormatter()
@@ -39,10 +38,10 @@ class Task: Codable, Orderable, Identifiable, ObservableObject {
         formatter.timeStyle = .short
         return formatter.string(from: notificationDate)
     }
-    var color: Int?
-    var notes: String = ""
+    @Published var color: Int?
+    @Published var notes: String = ""
     
-    init(orderID: Int, title: String, recurrenceRule: RecurrenceRule?, color: Int) {
+    init(orderID: Int, title: String, recurrenceRule: RecurrenceRule?, color: Int?) {
         self.orderID = orderID
         self.title = title
         self.recurrenceRule = recurrenceRule
@@ -50,7 +49,38 @@ class Task: Codable, Orderable, Identifiable, ObservableObject {
     }
     
     func viewModel(isDone: Bool, date: Date) -> TaskViewModel {
-        return TaskViewModel(id: id, orderID: orderID, title: title, isDone: isDone, date: date, color: color)
+        return TaskViewModel(task: self, isDone: isDone, date: date)
+    }
+    
+    func taskViewModel(date: Date) -> TaskViewModel? {
+        guard self.recurrenceRule != nil else {
+            return singleTaskViewModel(date: date)
+        }
+        // search if there is executed task on that day
+        let executedOnDate = self.executionLog.map { $0.dayStart }.filter { $0 == date.dayStart }
+        if !executedOnDate.isEmpty {
+            return self.viewModel(isDone: true, date: executedOnDate.first!)
+        }
+        else {
+            return recurrenceTaskViewModel(date: date)
+        }
+        
+    }
+    
+    private func singleTaskViewModel(date: Date) -> TaskViewModel? {
+        // if task is already executed
+        if let executionDate = self.executionLog.first {
+            return executionDate ==^ date ? self.viewModel(isDone: true, date: executionDate) : nil
+        }
+        // if task is active
+        else {
+            return startDate ==^ date ? self.viewModel(isDone: false, date: startDate) : nil
+        }
+    }
+    
+    private func recurrenceTaskViewModel(date: Date) -> TaskViewModel? {
+        guard let recurrenceRule = recurrenceRule else { return nil }
+        return date.matches(startDate: startDate, recurrenceRule: recurrenceRule) ? self.viewModel(isDone: false, date: date) : nil
     }
     
     var closestDate: Date {
@@ -79,6 +109,16 @@ class Task: Codable, Orderable, Identifiable, ObservableObject {
         else {
             return nil
         }
+    }
+    
+    func copy() -> Task {
+        let copyTask = Task(orderID: self.orderID, title: self.title, recurrenceRule: self.recurrenceRule, color: self.color)
+        copyTask.id = self.id
+        copyTask.startDate = self.startDate
+        copyTask.executionLog = self.executionLog
+        copyTask.notificationDate = self.notificationDate
+        copyTask.notes = self.notes
+        return copyTask
     }
     
     static func newTask(orderID: Int) -> Task {

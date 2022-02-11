@@ -9,32 +9,21 @@ import Foundation
 
 struct TaskViewModel: Identifiable {
     
-    var id: Int
-    var orderID: Int
-    var title: String
+    var task: Task
+    
+    var id: Int { task.id }
+    var orderID: Int { task.orderID }
+    var title: String { task.title }
     var isDone: Bool
     var date: Date
-    var color: Int?
+    var color: Int? { task.color }
     
     static var sample: [TaskViewModel] { [
-        TaskViewModel(id: 1, orderID: 1, title: "Task 1", isDone: true, date: Date(), color: 2),
-        TaskViewModel(id: 2, orderID: 2, title: "Task 2", isDone: false, date: Date(), color: 6),
-        TaskViewModel(id: 3, orderID: 3, title: "Task 3", isDone: false, date: Date(), color: 8),
-        TaskViewModel(id: 4, orderID: 4, title: "Task 4", isDone: true, date: Date(), color: 2)
+        TaskViewModel(task: Task.sample[0], isDone: true, date: Date()),
+        TaskViewModel(task: Task.sample[1], isDone: false, date: Date()),
+        TaskViewModel(task: Task.sample[2], isDone: false, date: Date()),
+        TaskViewModel(task: Task.sample[3], isDone: true, date: Date())
     ] }
-    
-    var dict: [String : Any] {
-        return ["id" : id, "orderID": orderID, "title" : title, "isDone" : isDone, "date" : date, "color" : color ?? 1]
-    }
-    
-    static func recreatedFromDict(_ dict: [String : Any]) -> TaskViewModel? {
-        guard let id = dict["id"] as? Int,
-              let orderID = dict["orderID"] as? Int,
-              let title = dict["title"] as? String,
-              let isDone = dict["isDone"] as? Bool,
-              let date = dict["date"] as? Date else { return nil }
-        let color = dict["color"] as? Int
-        return TaskViewModel(id: id, orderID: orderID, title: title, isDone: isDone, date: date, color: color)}
 }
 
 extension TaskViewModel: Comparable {

@@ -41,12 +41,28 @@ extension Date {
     }
     
     func matches(startDate: Date, recurrenceRule: RecurrenceRule) -> Bool {
-        if !recurrenceRule.weekdays.isEmpty {
-            let dateWeekday = Calendar.current.ordinality(of: .weekday, in: .weekOfYear, for: self)!
-            return recurrenceRule.weekdays.contains(dateWeekday) && (startDate <=^ self)
-        }
-        else {
-        if let recurrenceFrequency = recurrenceRule.recurrenceFrequency, recurrenceRule.interval != 0 {
+        switch recurrenceRule.recurrenceType {
+        case .regular:
+            guard let recurrenceFrequency = recurrenceRule.recurrenceFrequency else { return false }
+            switch recurrenceFrequency {
+            case .daily: return startDate <=^ self
+            case .weekly:
+                let startDateWeekday = Calendar.current.ordinality(of: .weekday, in: .weekOfYear, for: startDate)!
+                let todayWeekday = Calendar.current.ordinality(of: .weekday, in: .weekOfYear, for: self)!
+                return startDateWeekday == todayWeekday
+            case .monthly:
+                let startDateDay = Calendar.current.component(.day, from: startDate)
+                let todayDay = Calendar.current.component(.day, from: self)
+                return startDateDay == todayDay
+            case .yearly:
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd.MM"
+                let startDateString = formatter.string(from: startDate)
+                let todayDateString = formatter.string(from: self)
+                return startDateString == todayDateString
+            }
+        case .withIntervals:
+            guard let recurrenceFrequency = recurrenceRule.recurrenceFrequency, recurrenceRule.interval != 0 else { return false }
             let interval = recurrenceRule.interval
             let dayInSeconds = 86400
             var dateToIncrement = startDate
@@ -82,8 +98,9 @@ extension Date {
                 }
             }
             return dateToIncrement ==^ self
-        }
-        else { return false }
+        case .onWeekdays:
+            let dateWeekday = Calendar.current.ordinality(of: .weekday, in: .weekOfYear, for: self)!
+            return recurrenceRule.weekdays.contains(dateWeekday) && (startDate <=^ self)
         }
     }
 }
