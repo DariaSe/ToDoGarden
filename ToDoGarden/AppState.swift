@@ -10,6 +10,15 @@ import SwiftUI
 
 class AppState: ObservableObject {
     
+    enum LoadingState {
+        case idle
+        case loading
+        case success
+        case error
+    }
+    
+    @Published var loadingState: LoadingState = .idle
+    
     @Published var tasks: [Task] = Task.sample
     
     @Published var date = Date()

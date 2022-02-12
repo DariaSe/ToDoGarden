@@ -114,22 +114,16 @@ struct TaskDetailView: View {
                                     .font(.system(.headline, design: .rounded))
                             }
                             .alert(isPresented: $isShowingDeletionWarning) {
-                                Alert(
-                                    title: Text(Strings.taskDeletionTitle),
-                                    message: Text(Strings.taskDeletionMessage),
-                                    primaryButton: .destructive(Text(Strings.delete), action: {
-                                        isShowingActivityIndicator = true
-                                        interactor.delete(task: task) { success in
-                                            isShowingActivityIndicator = false
-                                            if success {
-                                                presentationMode.wrappedValue.dismiss()
-                                            }
-                                            else {
-                                                showError()
-                                            }
+                                Alert.taskDeletion {
+                                    interactor.delete(task: task) { success in
+                                        if success {
+                                            presentationMode.wrappedValue.dismiss()
                                         }
-                                    }),
-                                    secondaryButton: .default(Text(Strings.cancel), action: {}))
+                                        else {
+                                            showError()
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

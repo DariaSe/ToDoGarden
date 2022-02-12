@@ -47,6 +47,7 @@ struct Strings {
     static let active = "Active".localized
     static let completed = "Completed".localized
     static let noTasks = "No tasks for today".localized
+    static let allDone = "All tasks done!".localized
     static let addFirstTask = "Nothing here yet :(\n\nTap \"+\" to add your first task"
     
     static let taskDeletionTitle = "Do you want to delete this task?".localized

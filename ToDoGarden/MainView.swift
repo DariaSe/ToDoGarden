@@ -9,18 +9,17 @@ import SwiftUI
 
 struct MainView: View {
     
-    init(tasksInteractor: TasksInteractor) {
-        self.tasksInteractor = tasksInteractor
+    init() {
         UITabBar.appearance().backgroundColor = .yellow
     }
     
     @EnvironmentObject var appState: AppState
     
-    let tasksInteractor: TasksInteractor
+    @EnvironmentObject var tasksInteractor: TasksInteractor
     
     var body: some View {
         TabView {
-            TaskListView(interactor: tasksInteractor, date: $appState.date)
+            TaskListView(date: $appState.date)
                 .tabItem {
                     Label(Strings.tasks, systemImage: "list.bullet")
                 }
@@ -43,7 +42,8 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(tasksInteractor: TasksInteractor(appState: AppState()))
+        MainView()
             .environmentObject(AppState())
+            .environmentObject(TasksInteractor(appState: AppState()))
     }
 }

@@ -9,83 +9,82 @@ import SwiftUI
 
 struct TaskCell: View {
     
-    var viewModel: TaskViewModel
+    @EnvironmentObject var interactor: TasksInteractor
     
-    var color: Color { Color.tagColor(index: viewModel.color ?? 0) }
-    var text: String { viewModel.title }
-    var tasksDone: Int { viewModel.task.tasksCompleted }
-    var tasksTotal: Int { viewModel.task.tasksTotal }
-    var notificationTime: String? { viewModel.task.notificationTime }
-    var isDone: Bool { viewModel.isDone }
+    let viewModel : TaskViewModel
     
-    var onTapDone: () -> Void
+    @State private var offset : CGFloat = 0
+    @State private var showFullWidth : Bool = false
+    let buttonWidth : CGFloat = 80
+    @State var isActive : Bool = true
     
-    @State private var offset = CGSize.zero
+    @State var isShowingDeletionWarning : Bool = false
+    
+    var onSelection: () -> Void
     
     var body: some View {
-        ZStack {
-            GeometryReader { geometry in
-                let height = geometry.size.height
-                color
-                    .frame(width: 16, height: height, alignment: .leading)
+        Button {
+            onSelection()
+        } label: {
+            ZStack {
+                // bottom view
                 HStack {
-                    VStack(alignment: .leading, spacing: 8) {
-                        let progressText: String = "\(tasksDone)" + "/" + "\(tasksTotal)"
-                        Text(text)
-                            .foregroundColor(isDone ? .gray : .black)
-                            .font(.system(.body, design: .rounded))
-                            .strikethrough(isDone)
-                        HStack {
-                            Text(progressText)
-                            
-                            Spacer()
-                            if let notificationTime = notificationTime {
-                                Label(notificationTime, systemImage: "alarm")
-                            }
-                        }
-                        .font(.system(.caption, design: .rounded))
-                        .foregroundColor(.black)
-                    }
-                    .lineLimit(2)
                     Spacer()
+                    // Delete button
                     Button {
-                        onTapDone()
+                        isActive = true
+                        isShowingDeletionWarning = true
+                        withAnimation(.easeOut(duration: 0.2)) {
+                            offset = 0
+                        }
                     } label: {
-                        Image(systemName: isDone ? "checkmark.circle" : "circle")
-                            .resizable()
+                        Image(systemName: "trash")
+                            .font(.system(.largeTitle, design: .rounded))
+                            .foregroundColor(.taskCellBGColor)
+                            .padding()
                     }
-                    .foregroundColor(color)
-                    .padding()
-                    .frame(width: height, height: height, alignment: .trailing)
+                    .alert(isPresented: $isShowingDeletionWarning) {
+                        Alert.taskDeletion {
+                            interactor.delete(task: viewModel.task) { _ in }
+                        }
+                    }
                 }
-                .padding(.leading, 30)
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .background(Color.white
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3))
-            .gesture(DragGesture())
-            HStack {
-                Spacer()
-                Button {
-                    
-                } label: {
-                    Image(systemName: "trash")
-                        .font(.system(.largeTitle, design: .rounded))
-                        .foregroundColor(.destructiveColor)
-                        .padding()
+                .frame(height: 78)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .background(Color.destructiveColor.opacity(0.9)
+                                .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .shadow(color: .black.opacity(0.1), radius: 1, x: 0, y: 1))
+                // top view
+                TaskCellTopView(viewModel: viewModel, isActive: $isActive) {
+                    interactor.setCompletedOrCancel(taskID: viewModel.id, date: viewModel.date)
                 }
+                .offset(x: offset, y: 0)
+                .gesture(DragGesture()
+                            .onChanged { gesture in
+                    guard abs(gesture.translation.width) > abs(gesture.translation.height) else { return }
+                    isActive = false
+                    offset = gesture.translation.width > 0 ? 0 : max(gesture.translation.width, -80)
+                }
+                            .onEnded { _ in
+                    withAnimation(.easeOut(duration: 0.2)) {
+                        offset = offset < -40 ? -80 : 0
+                        isActive = offset == 0
+                    }
+                })
             }
         }
+        .disabled(!isActive)
     }
 }
 
 struct TaskCell_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TaskCell(viewModel: TaskViewModel.sample[0], onTapDone: {})
+            TaskCell(viewModel: TaskViewModel.sample[0], onSelection: {})
+                .environmentObject(TasksInteractor(appState: AppState()))
                 .frame(width: 387, height: 80)
                 .previewLayout(.sizeThatFits)
         }
     }
 }
+

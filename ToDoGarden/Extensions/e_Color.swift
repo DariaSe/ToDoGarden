@@ -21,7 +21,8 @@ extension Color {
 
 extension Color {
     
-    static var backgroundColor: Color = Color(netHex: 0xEFEDE2)
+    static var backgroundColor: Color = Color(netHex: 0xF5F4ED)
+    static var taskCellBGColor: Color = Color(netHex: 0xFCFBF5)
     
 //    static var borderColor: Color = Color.lightGray
     

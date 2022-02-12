@@ -11,14 +11,14 @@ struct TaskListView: View {
     
     enum ViewState {
         case idle
-        case noActive
+        case loaded
         case loading
-        case loadingError
+        case error
     }
     
     @EnvironmentObject var appState: AppState
     
-    var interactor: TasksInteractor
+    @EnvironmentObject var interactor: TasksInteractor
     
     @Binding var date: Date
     
@@ -26,8 +26,11 @@ struct TaskListView: View {
     
     @State private var selectedTask: Task?
     
-    var tasksActive: [TaskViewModel] { appState.tasksActive }
-    var tasksCompleted: [TaskViewModel] { appState.tasksCompleted }
+    
+    
+    @State private var isShowingDeletionWarning: Bool = false
+    @State private var isShowingActivityIndicator: Bool = false
+    @State private var isShowingErrorMessage: Bool = false
     
     var body: some View {
         ScrollView {
@@ -50,41 +53,7 @@ struct TaskListView: View {
                 if isCalendarShown {
                     CalendarView(date: $date, isShown: $isCalendarShown)
                 }
-                if tasksActive.isEmpty {
-                    Text("No active tasks")
-                }
-                else {
-                    VStack {
-                        ForEach(tasksActive) { viewModel in
-                                Button {
-                                    selectedTask = viewModel.task.copy()
-                                } label: {
-                                    TaskCell(viewModel: viewModel) {
-                                        interactor.setCompletedOrCancel(taskID: viewModel.id, date: date)
-                                    }
-                                }
-                                .frame(height: 76)
-                                .buttonStyle(TaskListButtonStyle())
-                            }
-                    }
-                    .padding()
-                }
-                if !tasksCompleted.isEmpty {
-                    Divider().padding(.horizontal, 40)
-                }
-                VStack {
-                    ForEach(tasksCompleted) { viewModel in
-                            Button {
-                                selectedTask = viewModel.task.copy()
-                            } label: {
-                                TaskCell(viewModel: viewModel) {
-                                    interactor.setCompletedOrCancel(taskID: viewModel.id, date: date)
-                                }
-                            }
-                            .frame(height: 76)
-                            .buttonStyle(TaskListButtonStyle())
-                    }
-                }
+                TaskListContainer(selectedTask: $selectedTask, date: $date)
                 .padding()
             }
         }
@@ -108,10 +77,12 @@ struct TaskListView: View {
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TaskListView(interactor: TasksInteractor(appState: AppState()), date: .constant(Date()))
+            TaskListView(date: .constant(Date()))
                 .environmentObject(AppState())
-            TaskListView(interactor: TasksInteractor(appState: AppState()), date: .constant(Date()))
+                .environmentObject(TasksInteractor(appState: AppState()))
+            TaskListView(date: .constant(Date()))
                 .environmentObject(AppState())
+                .environmentObject(TasksInteractor(appState: AppState()))
                 .previewDevice("iPhone 8")
         }
     }
@@ -121,8 +92,5 @@ struct TaskListView_Previews: PreviewProvider {
 struct TaskListButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.96 : 1)
-            .opacity(configuration.isPressed ? 0.85 : 1)
-            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }

@@ -14,8 +14,9 @@ struct ToDoGardenApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView(tasksInteractor: TasksInteractor(appState: appState))
+            MainView()
                 .environmentObject(appState)
+                .environmentObject(TasksInteractor(appState: appState))
         }
     }
 }

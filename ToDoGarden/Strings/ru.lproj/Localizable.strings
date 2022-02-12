@@ -22,6 +22,8 @@
 
 "Active" = "Активные";
 "Completed" = "Завершённые";
+"No tasks for today" = "Нет задач на сегодня";
+"All tasks done!" = "Все задачи выполнены!";
 "Nothing here yet :(\n\nTap \"+\" to add your first task" = "Здесь пока ничего нет :(\n\nНажмите \"+\" чтобы добавить задачу";
 
 "Do you want to delete this task?" = "Удалить эту задачу?";
