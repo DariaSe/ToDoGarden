@@ -40,4 +40,13 @@ extension Array where Element: Equatable {
         newArray.insert(newElement, at: index)
         self = newArray
     }
+    
+    mutating func updateExisting(with updatedElement: Element) {
+        guard let index = self.index(of: updatedElement) else { return }
+        var newArray = self
+        newArray.remove(at: index)
+        newArray.insert(updatedElement, at: index)
+        self = newArray
+    }
 }
+

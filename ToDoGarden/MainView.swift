@@ -14,29 +14,39 @@ struct MainView: View {
     }
     
     @EnvironmentObject var appState: AppState
-    
     @EnvironmentObject var tasksInteractor: TasksInteractor
     
     var body: some View {
-        TabView {
-            TaskListView(date: $appState.date)
-                .tabItem {
-                    Label(Strings.tasks, systemImage: "list.bullet")
-                }
-            InventoryView()
-                .tabItem {
-                    Label(Strings.inventory, systemImage: "leaf")
-                }
-            QuestsView()
-                .tabItem {
-                    Label(Strings.quests, systemImage: "lasso.and.sparkles")
-                }
-            SettingsView()
-                .tabItem {
-                    Label(Strings.settings, systemImage: "gearshape")
-                }
+        ZStack {
+            TabView {
+                TaskListView(date: $appState.date)
+                    .tabItem {
+                        Label(Strings.tasks, systemImage: "list.bullet")
+                    }
+                InventoryView()
+                    .tabItem {
+                        Label(Strings.inventory, systemImage: "leaf")
+                    }
+                QuestsView()
+                    .tabItem {
+                        Label(Strings.quests, systemImage: "lasso.and.sparkles")
+                    }
+                SettingsView()
+                    .tabItem {
+                        Label(Strings.settings, systemImage: "gearshape")
+                    }
+            }
+            .accentColor(.black)
+            .onAppear {
+                tasksInteractor.getTasks()
+            }
+            if appState.loadingState == .loading {
+                ProgressView()
+            }
+            if appState.loadingState == .error {
+                ErrorMessage()
+            }
         }
-        .accentColor(.black)
     }
 }
 

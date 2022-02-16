@@ -14,77 +14,58 @@ struct TaskCell: View {
     let viewModel : TaskViewModel
     
     @State private var offset : CGFloat = 0
-    @State private var showFullWidth : Bool = false
-    let buttonWidth : CGFloat = 80
-    @State var isActive : Bool = true
     
-    @State var isShowingDeletionWarning : Bool = false
+    @State var isEnabled : Bool = true
+    var isDragging : Bool
     
     var onSelection: () -> Void
     
     var body: some View {
-        Button {
-            onSelection()
-        } label: {
-            ZStack {
-                // bottom view
-                HStack {
-                    Spacer()
-                    // Delete button
-                    Button {
-                        isActive = true
-                        isShowingDeletionWarning = true
-                        withAnimation(.easeOut(duration: 0.2)) {
-                            offset = 0
-                        }
-                    } label: {
-                        Image(systemName: "trash")
-                            .font(.system(.largeTitle, design: .rounded))
-                            .foregroundColor(.taskCellBGColor)
-                            .padding()
+        ZStack {
+            // MARK: - Dragging placeholder
+            RoundedRectangle(cornerRadius: 20).fill(Color.gray.opacity(0.15))
+            // MARK: - Bottom view
+            if !isDragging {
+                TaskCellBottomView() {
+                    isEnabled = true
+                    withAnimation(.easeOut(duration: 0.2)) {
+                        offset = 0
                     }
-                    .alert(isPresented: $isShowingDeletionWarning) {
-                        Alert.taskDeletion {
-                            interactor.delete(task: viewModel.task) { _ in }
-                        }
-                    }
+                    interactor.delete(task: viewModel.task) { _ in }
                 }
-                .frame(height: 78)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .background(Color.destructiveColor.opacity(0.9)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                                .shadow(color: .black.opacity(0.1), radius: 1, x: 0, y: 1))
-                // top view
-                TaskCellTopView(viewModel: viewModel, isActive: $isActive) {
+                // MARK: - Top view
+                TaskCellTopView(viewModel: viewModel, isEnabled: $isEnabled) {
                     interactor.setCompletedOrCancel(taskID: viewModel.id, date: viewModel.date)
                 }
                 .offset(x: offset, y: 0)
+                .onTapGesture {
+                    onSelection()
+                }
                 .gesture(DragGesture()
                             .onChanged { gesture in
                     guard abs(gesture.translation.width) > abs(gesture.translation.height) else { return }
-                    isActive = false
+                    isEnabled = false
                     offset = gesture.translation.width > 0 ? 0 : max(gesture.translation.width, -80)
                 }
                             .onEnded { _ in
                     withAnimation(.easeOut(duration: 0.2)) {
                         offset = offset < -40 ? -80 : 0
-                        isActive = offset == 0
+                        isEnabled = offset == 0
                     }
                 })
             }
         }
-        .disabled(!isActive)
+        .frame(height: 80)
     }
 }
 
 struct TaskCell_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TaskCell(viewModel: TaskViewModel.sample[0], onSelection: {})
+            TaskCell(viewModel: TaskViewModel.sample[0], isDragging: false, onSelection: {})
                 .environmentObject(TasksInteractor(appState: AppState()))
                 .frame(width: 387, height: 80)
                 .previewLayout(.sizeThatFits)
         }
     }
 }
-

@@ -134,14 +134,7 @@ struct TaskDetailView: View {
                         .progressViewStyle(.circular)
                 }
                 if isShowingErrorMessage {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.destructiveColor)
-                            .frame(width: 300, height: 60)
-                        Text(Strings.errorMessage)
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                    }
+                    ErrorMessage()
                 }
             }
             .padding()

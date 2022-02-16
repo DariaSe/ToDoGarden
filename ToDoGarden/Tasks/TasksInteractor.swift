@@ -22,7 +22,6 @@ class TasksInteractor: ObservableObject {
         appState.loadingState = .loading
         // api call
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.appState.loadingState = .success
             guard let task = self.appState.tasks.filter({$0.id == taskID}).first else { return }
             if task.executionLog.contains(where: {$0 ==^ date}) {
                 task.executionLog = task.executionLog.without(date.dayStart)
@@ -57,6 +56,19 @@ class TasksInteractor: ObservableObject {
             Task.saveToFile(tasks: self.appState.tasks)
             completion(true)
         }
+    }
+    
+    func saveReorderedTasks(_ tasks: [Task], completion: @escaping (Bool) -> Void) {
+        appState.loadingState = .loading
+        // api call
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.appState.loadingState = .success
+            for task in tasks {
+                self.appState.tasks.updateExisting(with: task)
+            }
+        }
+        self.appState.objectWillChange.send()
+        Task.saveToFile(tasks: self.appState.tasks)
     }
     
     func delete(task: Task, completion: @escaping (Bool) -> Void) {

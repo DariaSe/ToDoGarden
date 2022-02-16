@@ -52,6 +52,10 @@
 		DAC0991327B7F4D6001DFCD2 /* TaskListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991227B7F4D6001DFCD2 /* TaskListContainer.swift */; };
 		DAC0991527B80326001DFCD2 /* e_Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991427B80326001DFCD2 /* e_Alert.swift */; };
 		DAC0991727B8179B001DFCD2 /* TaskCellTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991627B8179B001DFCD2 /* TaskCellTopView.swift */; };
+		DAC0991927B819A7001DFCD2 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991827B819A7001DFCD2 /* ErrorMessage.swift */; };
+		DAC0991D27B81FF4001DFCD2 /* TaskListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991C27B81FF4001DFCD2 /* TaskListHeader.swift */; };
+		DAC0991F27B822BB001DFCD2 /* TaskCellBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991E27B822BB001DFCD2 /* TaskCellBottomView.swift */; };
+		DAC0992227B82DF3001DFCD2 /* TasksAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0992127B82DF3001DFCD2 /* TasksAPIService.swift */; };
 		DAE1B26A27B6ABEA005520F4 /* TaskListVStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE1B26927B6ABEA005520F4 /* TaskListVStack.swift */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +109,10 @@
 		DAC0991227B7F4D6001DFCD2 /* TaskListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListContainer.swift; sourceTree = "<group>"; };
 		DAC0991427B80326001DFCD2 /* e_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = e_Alert.swift; sourceTree = "<group>"; };
 		DAC0991627B8179B001DFCD2 /* TaskCellTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellTopView.swift; sourceTree = "<group>"; };
+		DAC0991827B819A7001DFCD2 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
+		DAC0991C27B81FF4001DFCD2 /* TaskListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeader.swift; sourceTree = "<group>"; };
+		DAC0991E27B822BB001DFCD2 /* TaskCellBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellBottomView.swift; sourceTree = "<group>"; };
+		DAC0992127B82DF3001DFCD2 /* TasksAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksAPIService.swift; sourceTree = "<group>"; };
 		DAE1B26927B6ABEA005520F4 /* TaskListVStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListVStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +143,7 @@
 		DA598C4C27AEEE910096CFC7 /* Reusable Views */ = {
 			isa = PBXGroup;
 			children = (
+				DAC0991827B819A7001DFCD2 /* ErrorMessage.swift */,
 				DA598C4D27AEEEEB0096CFC7 /* CheckboxButton.swift */,
 				DA3C4F4027B16EB70027B53E /* RadioButton.swift */,
 				DA3C4F4227B176BA0027B53E /* DropdownButton.swift */,
@@ -166,6 +175,7 @@
 				DA6BA4DA2792F2CC009A30C5 /* MainView.swift */,
 				DA5110CD27A7F9E50019BD81 /* AppState.swift */,
 				DA598C4C27AEEE910096CFC7 /* Reusable Views */,
+				DAC0992027B82DD2001DFCD2 /* API Services */,
 				DA6BA4DC2792F6C0009A30C5 /* Tasks */,
 				DA6BA4DE2792F6D3009A30C5 /* Inventory */,
 				DA6BA4E02792F6EA009A30C5 /* Quests */,
@@ -205,10 +215,12 @@
 				DA6BA4ED2794189F009A30C5 /* CalendarHeaderView.swift */,
 				DA6BA4EF2794229B009A30C5 /* CalendarView.swift */,
 				DA3C4F3E27B14B140027B53E /* TaskListDateView.swift */,
+				DAC0991C27B81FF4001DFCD2 /* TaskListHeader.swift */,
 				DAC0991227B7F4D6001DFCD2 /* TaskListContainer.swift */,
 				DAE1B26927B6ABEA005520F4 /* TaskListVStack.swift */,
 				DA6E7A3A2798038500495D26 /* TaskCell.swift */,
 				DAC0991627B8179B001DFCD2 /* TaskCellTopView.swift */,
+				DAC0991E27B822BB001DFCD2 /* TaskCellBottomView.swift */,
 				DA3C4F3427B127420027B53E /* TaskDetailDateView.swift */,
 				DA3C4F3627B127530027B53E /* TaskDetailRecurrenceView.swift */,
 				DA3C4F3A27B127800027B53E /* TaskDetailNotificationView.swift */,
@@ -290,6 +302,14 @@
 				DA520A552799846F0075D92F /* e_Int.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DAC0992027B82DD2001DFCD2 /* API Services */ = {
+			isa = PBXGroup;
+			children = (
+				DAC0992127B82DF3001DFCD2 /* TasksAPIService.swift */,
+			);
+			path = "API Services";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,6 +397,7 @@
 				DAC0991327B7F4D6001DFCD2 /* TaskListContainer.swift in Sources */,
 				DA3C4F3D27B1278B0027B53E /* TaskDetailColorView.swift in Sources */,
 				DA3C4F3927B1276D0027B53E /* TaskDetailNotesView.swift in Sources */,
+				DAC0992227B82DF3001DFCD2 /* TasksAPIService.swift in Sources */,
 				DA3C4F3B27B127800027B53E /* TaskDetailNotificationView.swift in Sources */,
 				DA6E7A302797FF9800495D26 /* Strings.swift in Sources */,
 				DA3C4F3727B127530027B53E /* TaskDetailRecurrenceView.swift in Sources */,
@@ -388,6 +409,7 @@
 				DA520A50279984430075D92F /* RecurrenceRule.swift in Sources */,
 				DA6BA4DB2792F2CC009A30C5 /* MainView.swift in Sources */,
 				DA520A4F279984430075D92F /* CalendarDay.swift in Sources */,
+				DAC0991927B819A7001DFCD2 /* ErrorMessage.swift in Sources */,
 				DA6BA4F02794229B009A30C5 /* CalendarView.swift in Sources */,
 				DA3C4F4327B176BA0027B53E /* DropdownButton.swift in Sources */,
 				DA520A5A2799846F0075D92F /* e_Int.swift in Sources */,
@@ -407,6 +429,8 @@
 				DA520A3527997FA80075D92F /* TaskViewModel.swift in Sources */,
 				DA6BA4E52792F74F009A30C5 /* TaskListView.swift in Sources */,
 				DA520A5B2799846F0075D92F /* e_Date TaskFactory.swift in Sources */,
+				DAC0991F27B822BB001DFCD2 /* TaskCellBottomView.swift in Sources */,
+				DAC0991D27B81FF4001DFCD2 /* TaskListHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

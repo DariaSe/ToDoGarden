@@ -19,7 +19,7 @@ class AppState: ObservableObject {
     
     @Published var loadingState: LoadingState = .idle
     
-    @Published var tasks: [Task] = Task.sample
+    @Published var tasks: [Task] = []
     
     @Published var date = Date()
     

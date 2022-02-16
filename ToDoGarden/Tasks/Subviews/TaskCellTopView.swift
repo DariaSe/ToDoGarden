@@ -18,7 +18,7 @@ struct TaskCellTopView: View {
     var notificationTime : String? { viewModel.task.notificationTime }
     var isDone : Bool { viewModel.isDone }
     
-    @Binding var isActive : Bool
+    @Binding var isEnabled : Bool
     
     var action: () -> Void
     
@@ -52,8 +52,8 @@ struct TaskCellTopView: View {
                 Image(systemName: isDone ? "checkmark.circle" : "circle")
                     .font(.system(size: 44))
             }
-            .disabled(!isActive)
-            .foregroundColor(isActive ? color : color.opacity(0.7))
+            .disabled(!isEnabled)
+            .foregroundColor(isEnabled ? color : color.opacity(0.7))
             .padding(.all, 12)
             .frame(alignment: .trailing)
         }
@@ -67,7 +67,7 @@ struct TaskCellTopView: View {
 
 struct TaskCellTopView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskCellTopView(viewModel: TaskViewModel.sample[0], isActive: .constant(true), action: {})
+        TaskCellTopView(viewModel: TaskViewModel.sample[0], isEnabled: .constant(true), action: {})
             .frame(width: 387, height: 80)
             .previewLayout(.sizeThatFits)
     }

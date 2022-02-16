@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct TaskListDateView: View {
+    
     @Binding var date: Date
     @State var isCalendarShown: Bool = false
+    
     var body: some View {
         VStack {
             CalendarHeaderView(date: $date, isCalendarShown: $isCalendarShown)

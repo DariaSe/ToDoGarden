@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TaskListContainer: View {
     
+    @EnvironmentObject var appState: AppState
+    
     enum ContentState {
         case empty
         case onlyActive
@@ -23,13 +25,11 @@ struct TaskListContainer: View {
         else { return .activeAndDone }
     }
     
-    @EnvironmentObject var appState: AppState
-    
     @Binding var selectedTask: Task?
     @Binding var date: Date
     
-    var tasksActive: [TaskViewModel] { appState.tasksActive }
-    var tasksCompleted: [TaskViewModel] { appState.tasksCompleted }
+    var tasksActive: [TaskViewModel] { appState.tasksActive.sorted() }
+    var tasksCompleted: [TaskViewModel] { appState.tasksCompleted.sorted() }
     
     var body: some View {
         VStack {
@@ -57,5 +57,6 @@ struct TaskListContainer: View {
 struct TaskListContainer_Previews: PreviewProvider {
     static var previews: some View {
         TaskListContainer(selectedTask: .constant(Task.sample[0]), date: .constant(Date()))
+            .environmentObject(AppState())
     }
 }
