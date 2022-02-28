@@ -11,44 +11,35 @@ struct TaskListContainer: View {
     
     @EnvironmentObject var appState: AppState
     
-    enum ContentState {
-        case empty
-        case onlyActive
-        case onlyDone
-        case activeAndDone
+    var contentState : AppState.ContentState { appState.contentState }
+    
+    @Binding var selectedTask : Task?
+    @Binding var date : Date
+    
+    
+    var activeTasksVStack: some View {
+        return TaskListVStack(tasks: $appState.tasksActive, selectedTask: $selectedTask, date: $date)
     }
     
-    var contentState: ContentState {
-        if tasksActive.isEmpty && tasksCompleted.isEmpty { return .empty }
-        else if !tasksActive.isEmpty && tasksCompleted.isEmpty { return .onlyActive }
-        else if tasksActive.isEmpty && !tasksCompleted.isEmpty { return .onlyDone }
-        else { return .activeAndDone }
+    var completedTasksVStack: some View {
+        TaskListVStack(tasks: $appState.tasksCompleted, selectedTask: $selectedTask, date: $date)
     }
-    
-    @Binding var selectedTask: Task?
-    @Binding var date: Date
-    
-    var tasksActive: [TaskViewModel] { appState.tasksActive.sorted() }
-    var tasksCompleted: [TaskViewModel] { appState.tasksCompleted.sorted() }
     
     var body: some View {
         VStack {
             switch contentState {
             case .empty:
                 Text(Strings.noTasks)
-            
             case .onlyActive:
-                TaskListVStack(selectedTask: $selectedTask, date: $date, tasks: tasksActive)
-            
+                activeTasksVStack
             case .onlyDone:
                 Text(Strings.allDone)
                 Divider().padding(.horizontal, 40)
-                TaskListVStack(selectedTask: $selectedTask, date: $date, tasks: tasksCompleted)
-                
+                completedTasksVStack
             default:
-                TaskListVStack(selectedTask: $selectedTask, date: $date, tasks: tasksActive)
+                activeTasksVStack
                 Divider().padding(.horizontal, 40)
-                TaskListVStack(selectedTask: $selectedTask, date: $date, tasks: tasksCompleted)
+                completedTasksVStack
             }
         }
     }

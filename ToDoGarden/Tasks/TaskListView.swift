@@ -33,7 +33,7 @@ struct TaskListView: View {
     
     func addTask() {
         let nextOrderID = appState.tasks.map({$0.orderID}).sorted().last
-        selectedTask = Task.newTask(orderID: (nextOrderID ?? 0) + 1)
+        selectedTask = Task.newTask(orderID: (nextOrderID ?? 0) + 1, date: date)
     }
 }
 

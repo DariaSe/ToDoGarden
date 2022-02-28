@@ -9,14 +9,15 @@ import SwiftUI
 
 struct TaskCellTopView: View {
     
-    let viewModel : TaskViewModel
+    let task : Task
+    let date : Date
     
-    var color : Color { Color.tagColor(index: viewModel.color ?? 0) }
-    var text : String { viewModel.title }
-    var tasksDone : Int { viewModel.task.tasksCompleted }
-    var tasksTotal : Int { viewModel.task.tasksTotal }
-    var notificationTime : String? { viewModel.task.notificationTime }
-    var isDone : Bool { viewModel.isDone }
+    var color : Color { Color.tagColor(index: task.color ?? 0) }
+    var text : String { task.title }
+    var tasksDone : Int { task.tasksCompleted }
+    var tasksTotal : Int { task.tasksTotal }
+    var notificationTime : String? { task.notificationTime }
+    var isDone : Bool { task.isDoneOnDate(date) }
     
     @Binding var isEnabled : Bool
     
@@ -67,7 +68,7 @@ struct TaskCellTopView: View {
 
 struct TaskCellTopView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskCellTopView(viewModel: TaskViewModel.sample[0], isEnabled: .constant(true), action: {})
+        TaskCellTopView(task: Task.sample[0], date: Date(), isEnabled: .constant(true), action: {})
             .frame(width: 387, height: 80)
             .previewLayout(.sizeThatFits)
     }

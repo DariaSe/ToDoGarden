@@ -8,29 +8,22 @@
 import Foundation
 import SwiftUI
 
-class Task: Codable, Orderable, Identifiable, ObservableObject {
+struct Task: Codable, Orderable, Identifiable {
+    
+    // MARK: - Stored properties
     
     var id: Int = Int.random(in: 1...Int.max)
-    @Published var orderID: Int
-    @Published var title: String = ""
-    @Published var startDate: Date = Date()
-    @Published var recurrenceRule: RecurrenceRule?
-    @Published var executionLog: [Date] = []
-    var tasksCompleted: Int {
-        return executionLog.count
-    }
-    var tasksTotal: Int {
-        var date = startDate
-        var taskModels = [TaskViewModel]()
-        repeat {
-            if let taskModel = self.taskViewModel(date: date) {
-                taskModels.append(taskModel)
-            }
-            date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
-        } while date <=^ Date()
-        return taskModels.count
-    }
-    @Published var notificationDate: Date?
+    var orderID: Int
+    var title: String = ""
+    var startDate: Date = Date()
+    var recurrenceRule: RecurrenceRule?
+    var executionLog: [Date] = []
+    var notificationDate: Date?
+    var color: Int?
+    var notes: String = ""
+    
+    // MARK: - Computed properties
+    
     var notificationTime: String? {
         guard let notificationDate = notificationDate else { return nil }
         let formatter = DateFormatter()
@@ -38,49 +31,40 @@ class Task: Codable, Orderable, Identifiable, ObservableObject {
         formatter.timeStyle = .short
         return formatter.string(from: notificationDate)
     }
-    @Published var color: Int?
-    @Published var notes: String = ""
     
-    init(orderID: Int, title: String, recurrenceRule: RecurrenceRule?, color: Int?) {
-        self.orderID = orderID
-        self.title = title
-        self.recurrenceRule = recurrenceRule
-        self.color = color
+    var tasksCompleted: Int {
+        return executionLog.count
     }
     
-    func viewModel(isDone: Bool, date: Date) -> TaskViewModel {
-        return TaskViewModel(task: self, isDone: isDone, date: date)
+    var tasksTotal: Int {
+        var date = startDate
+        var count = 0
+        repeat {
+            if self.appearsOnDate(date) {
+                count += 1
+            }
+            date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+        } while date <=^ Date()
+        return count
     }
     
-    func taskViewModel(date: Date) -> TaskViewModel? {
-        guard self.recurrenceRule != nil else {
-            return singleTaskViewModel(date: date)
-        }
-        // search if there is executed task on that day
-        let executedOnDate = self.executionLog.map { $0.dayStart }.filter { $0 == date.dayStart }
-        if !executedOnDate.isEmpty {
-            return self.viewModel(isDone: true, date: executedOnDate.first!)
-        }
-        else {
-            return recurrenceTaskViewModel(date: date)
-        }
-        
+    var tasksDonePercentage: String {
+        return String(Int(round(Double(tasksCompleted) / Double(tasksTotal) * 100))) + "%"
     }
     
-    private func singleTaskViewModel(date: Date) -> TaskViewModel? {
-        // if task is already executed
-        if let executionDate = self.executionLog.first {
-            return executionDate ==^ date ? self.viewModel(isDone: true, date: executionDate) : nil
+    
+    func appearsOnDate(_ date: Date) -> Bool {
+        if let recurrenceRule = self.recurrenceRule { // if is recurring
+            return date.matches(startDate: startDate, recurrenceRule: recurrenceRule)
         }
-        // if task is active
-        else {
-            return startDate ==^ date ? self.viewModel(isDone: false, date: startDate) : nil
+        else { // if is single
+            return startDate ==^ date
         }
     }
     
-    private func recurrenceTaskViewModel(date: Date) -> TaskViewModel? {
-        guard let recurrenceRule = recurrenceRule else { return nil }
-        return date.matches(startDate: startDate, recurrenceRule: recurrenceRule) ? self.viewModel(isDone: false, date: date) : nil
+    func isDoneOnDate(_ date: Date) -> Bool {
+        let executedOnDate = self.executionLog.map { $0.dayStart }.filter { $0 ==^ date }
+        return !executedOnDate.isEmpty
     }
     
     var closestDate: Date {
@@ -96,6 +80,8 @@ class Task: Codable, Orderable, Identifiable, ObservableObject {
         }
     }
     
+    
+    // MARK: - Interface helpers
     var validationWarning: String? {
         if title.isEmpty {
             return Strings.emptyTitleAlert
@@ -110,19 +96,10 @@ class Task: Codable, Orderable, Identifiable, ObservableObject {
             return nil
         }
     }
+
     
-    func copy() -> Task {
-        let copyTask = Task(orderID: self.orderID, title: self.title, recurrenceRule: self.recurrenceRule, color: self.color)
-        copyTask.id = self.id
-        copyTask.startDate = self.startDate
-        copyTask.executionLog = self.executionLog
-        copyTask.notificationDate = self.notificationDate
-        copyTask.notes = self.notes
-        return copyTask
-    }
-    
-    static func newTask(orderID: Int) -> Task {
-        Task(orderID: orderID, title: "", recurrenceRule: nil, color: 0)
+    static func newTask(orderID: Int, date: Date) -> Task {
+        Task(orderID: orderID, title: "", startDate: date, recurrenceRule: nil, color: 0)
     }
     
     static var sample: [Task] { [
@@ -131,6 +108,20 @@ class Task: Codable, Orderable, Identifiable, ObservableObject {
         Task(orderID: 3, title: "Task 3", recurrenceRule: RecurrenceRule.sample3, color: 8),
         Task(orderID: 4, title: "Task 4", recurrenceRule: nil, color: 2)
     ] }
+    
+    // MARK: - Init
+    init(orderID: Int,
+         title: String,
+         startDate: Date = Date(),
+         recurrenceRule: RecurrenceRule?,
+         notificationDate: Date? = nil,
+         color: Int?,
+         notes: String = "") {
+        self.orderID = orderID
+        self.title = title
+        self.recurrenceRule = recurrenceRule
+        self.color = color
+    }
     
     //MARK: Decoding and encoding
     
@@ -146,7 +137,7 @@ class Task: Codable, Orderable, Identifiable, ObservableObject {
         case notes
     }
     
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         orderID = try values.decode(Int.self, forKey: .orderID)

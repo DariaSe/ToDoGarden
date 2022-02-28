@@ -14,38 +14,50 @@ struct TaskDetailView: View {
     var interactor: TasksInteractor
     
     let task: Task
-    @StateObject private var editingTask: Task
+//    @StateObject private var editingTask: Task
     
     init(interactor: TasksInteractor, task: Task) {
         self.interactor = interactor
         self.task = task
-        self._editingTask = StateObject(wrappedValue: task)
         self._isNew = State(initialValue: task.title.isEmpty)
+        self._title = State(initialValue: task.title)
+        startDate = task.startDate
+//        self._startDate = State(initialValue: task.startDate)
+        self._isRepeating = State(initialValue: task.recurrenceRule != nil)
         if let recurrenceRule = task.recurrenceRule {
             self._recurrenceType = State(initialValue: recurrenceRule.recurrenceType)
             self._recurrenceFrequency = State(initialValue: recurrenceRule.recurrenceFrequency ?? .daily)
             self._recurrenceInterval = State(initialValue: recurrenceRule.interval)
             self._selectedWeekdays = State(initialValue: recurrenceRule.weekdays)
         }
+        isNotificationOn = task.notificationDate != nil
+        self._notificationDate = State(initialValue: task.notificationDate ?? Date())
+        self._isColorSelected = State(initialValue: task.color != nil)
+        self._color = State(initialValue: task.color ?? 0)
     }
     
-    @State var isNew: Bool = true
+    @State var isNew : Bool = true
+    @State private var title : String = ""
+    @State private var startDate : Date = Date()
     
-    @State private var isRepeating: Bool = true
-    @State private var recurrenceType: RecurrenceRule.RecurrenceType = .regular
-    @State private var recurrenceFrequency: RecurrenceFrequency = .daily
-    @State private var recurrenceInterval: Int = 0
-    @State private var selectedWeekdays: [Int] = []
+    @State private var isRepeating : Bool = true
+    @State private var recurrenceType : RecurrenceRule.RecurrenceType = .regular
+    @State private var recurrenceFrequency : RecurrenceFrequency = .daily
+    @State private var recurrenceInterval : Int = 0
+    @State private var selectedWeekdays : [Int] = []
     
-    @State private var isNotificationOn: Bool = false
-    @State private var notificationDate: Date = Date()
+    @State private var isNotificationOn : Bool = false
+    @State private var notificationDate : Date = Date()
     
     @State private var isColorSelected: Bool = false
+    @State private var color : Int?
     
-    @State private var isShowingValidationWarning: Bool = false
-    @State private var isShowingDeletionWarning: Bool = false
-    @State private var isShowingActivityIndicator: Bool = false
-    @State private var isShowingErrorMessage: Bool = false
+    @State private var notes : String = ""
+    
+    @State private var isShowingValidationWarning : Bool = false
+    @State private var isShowingDeletionWarning : Bool = false
+    @State private var isShowingActivityIndicator : Bool = false
+    @State private var isShowingErrorMessage : Bool = false
     
     var body: some View {
         ScrollView {
@@ -68,25 +80,24 @@ struct TaskDetailView: View {
                         }
                     }
                     // MARK: - Title
-                    TextField(Strings.taskTitle, text: $editingTask.title)
+                    TextField(Strings.taskTitle, text: $title)
                         .font(.system(.body, design: .rounded))
                         .padding()
                         .background(Capsule().fill(Color.textControlsBGColor))
                     // MARK: - Start date
-                    TaskDetailDateView(startDate: $editingTask.startDate, isRecurring: editingTask.recurrenceRule != nil)
+                    TaskDetailDateView(startDate: $startDate, isRecurring: task.recurrenceRule != nil)
                     // MARK: - Recurrence
                     TaskDetailRecurrenceView(isRepeating: $isRepeating, recurrenceType: $recurrenceType, recurrenceFrequency: $recurrenceFrequency, interval: $recurrenceInterval, selectedWeekdays: $selectedWeekdays)
                     // MARK: - Notification
                     TaskDetailNotificationView(isNotificationOn: $isNotificationOn, notificationDate: $notificationDate)
                     // MARK: - Color
-                    TaskDetailColorView(isColorSelected: $isColorSelected, color: $editingTask.color)
+                    TaskDetailColorView(isColorSelected: $isColorSelected, color: $color)
                     // MARK: - Notes
-                    TaskDetailNotesView(notes: $editingTask.notes)
+                    TaskDetailNotesView(notes: $notes)
                     // MARK: - Save button
                     VStack {
                         Button {
-                            updateTask()
-                            isShowingValidationWarning = editingTask.validationWarning != nil
+                            isShowingValidationWarning = updatedTask.validationWarning != nil
                             if !isShowingValidationWarning {
                                 saveTask()
                             }
@@ -101,7 +112,7 @@ struct TaskDetailView: View {
                             }
                         }
                         .alert(isPresented: $isShowingValidationWarning, content: {
-                            Alert(title: Text(editingTask.validationWarning ?? ""), dismissButton: .default(Text("OK")))
+                            Alert(title: Text(updatedTask.validationWarning ?? ""), dismissButton: .default(Text("OK")))
                         })
                         .frame(width: 160, height: 60)
                         // MARK: - Delete button
@@ -131,7 +142,6 @@ struct TaskDetailView: View {
                 // MARK: - Activity Indicator
                 if isShowingActivityIndicator {
                     ProgressView()
-                        .progressViewStyle(.circular)
                 }
                 if isShowingErrorMessage {
                     ErrorMessage()
@@ -141,25 +151,28 @@ struct TaskDetailView: View {
         }
         .onAppear {
             UITextView.appearance().backgroundColor = .clear
-            isRepeating = editingTask.recurrenceRule != nil
-            isNotificationOn = editingTask.notificationDate != nil
-            notificationDate = editingTask.notificationDate ?? Date()
-            isColorSelected = editingTask.color != nil
         }
     }
     
-    func updateTask() {
+    var updatedTask: Task {
         if recurrenceType == .withIntervals && recurrenceInterval == 1 {
             recurrenceType = .regular
         }
-        editingTask.recurrenceRule = isRepeating ? RecurrenceRule(recurrenceType: recurrenceType, recurrenceFrequency: recurrenceFrequency, interval: recurrenceInterval, weekdays: selectedWeekdays) : nil
-        editingTask.notificationDate = isNotificationOn ? notificationDate : nil
-        editingTask.color = isColorSelected ? editingTask.color : nil
+        let recurrenceRule = isRepeating ? RecurrenceRule(recurrenceType: recurrenceType, recurrenceFrequency: recurrenceFrequency, interval: recurrenceInterval, weekdays: selectedWeekdays) : nil
+        var updatedTask = Task(orderID: task.orderID,
+                               title: title,
+                               startDate: startDate,
+                               recurrenceRule: recurrenceRule,
+                               notificationDate: isNotificationOn ? notificationDate : nil,
+                               color: isColorSelected ? color : nil,
+                               notes: notes)
+        updatedTask.id = task.id
+        return updatedTask
     }
     
     func saveTask() {
         isShowingActivityIndicator = true
-        interactor.save(task: editingTask) { success in
+        interactor.save(task: updatedTask) { success in
             isShowingActivityIndicator = false
             if success {
                 presentationMode.wrappedValue.dismiss()

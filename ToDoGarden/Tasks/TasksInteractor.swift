@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class TasksInteractor: ObservableObject {
     
@@ -22,14 +23,16 @@ class TasksInteractor: ObservableObject {
         appState.loadingState = .loading
         // api call
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            guard let task = self.appState.tasks.filter({$0.id == taskID}).first else { return }
+            self.appState.loadingState = .success
+            guard var task = self.appState.tasks.filter({$0.id == taskID}).first else { return }
             if task.executionLog.contains(where: {$0 ==^ date}) {
                 task.executionLog = task.executionLog.without(date.dayStart)
             }
             else {
                 task.executionLog.append(date.dayStart)
             }
-            self.appState.objectWillChange.send()
+            self.appState.tasks.updateExisting(with: task)
+//            self.appState.objectWillChange.send()
             Task.saveToFile(tasks: self.appState.tasks)
         }
     }
@@ -38,7 +41,14 @@ class TasksInteractor: ObservableObject {
         appState.loadingState = .loading
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.appState.loadingState = .success
-            self.appState.tasks = Task.loadFromFile() ?? []
+            var tasks = Task.loadFromFile()?.sorted() ?? []
+            for (index, task) in tasks.enumerated() {
+                var newTask = task
+                newTask.orderID = index
+                tasks.updateExisting(with: newTask)
+            }
+            self.appState.tasks = tasks.sorted()
+            print(self.appState.tasks.map({$0.orderID}))
         }
     }
     
@@ -53,6 +63,7 @@ class TasksInteractor: ObservableObject {
             else {
                 self.appState.tasks.append(task)
             }
+            self.appState.objectWillChange.send()
             Task.saveToFile(tasks: self.appState.tasks)
             completion(true)
         }

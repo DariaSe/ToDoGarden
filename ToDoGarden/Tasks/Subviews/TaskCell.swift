@@ -11,7 +11,8 @@ struct TaskCell: View {
     
     @EnvironmentObject var interactor: TasksInteractor
     
-    let viewModel : TaskViewModel
+    let task : Task
+    let date : Date
     
     @State private var offset : CGFloat = 0
     
@@ -31,11 +32,11 @@ struct TaskCell: View {
                     withAnimation(.easeOut(duration: 0.2)) {
                         offset = 0
                     }
-                    interactor.delete(task: viewModel.task) { _ in }
+                    interactor.delete(task: task) { _ in }
                 }
                 // MARK: - Top view
-                TaskCellTopView(viewModel: viewModel, isEnabled: $isEnabled) {
-                    interactor.setCompletedOrCancel(taskID: viewModel.id, date: viewModel.date)
+                TaskCellTopView(task: task, date: date, isEnabled: $isEnabled) {
+                    interactor.setCompletedOrCancel(taskID: task.id, date: date)
                 }
                 .offset(x: offset, y: 0)
                 .onTapGesture {
@@ -62,7 +63,7 @@ struct TaskCell: View {
 struct TaskCell_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TaskCell(viewModel: TaskViewModel.sample[0], isDragging: false, onSelection: {})
+            TaskCell(task: Task.sample[0], date: Date(), isDragging: false, onSelection: {})
                 .environmentObject(TasksInteractor(appState: AppState()))
                 .frame(width: 387, height: 80)
                 .previewLayout(.sizeThatFits)
