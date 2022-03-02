@@ -53,7 +53,7 @@
 
 "On weekdays:" = "On weekdays:";
 
-"Notification" = "Notification";
+"Reminder" = "Reminder";
 "1 min before" = "1 min before";
 "5 min before" = "5 min before";
 "15 min before" = "15 min before";
@@ -71,3 +71,6 @@
 "Select weekdays" = "Select weekdays";
 
 "Oops! Something went wrong.\nPlease try again." = "Oops! Something went wrong.\nPlease try again.";
+
+"To receive reminders, please allow notifications in Settings" = "To receive reminders, please allow notifications in Settings";
+"Reminder from " = "Reminder from ";

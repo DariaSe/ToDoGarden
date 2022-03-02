@@ -82,7 +82,7 @@ struct Strings {
     
     static let onWeekdays = "On weekdays:".localized
     
-    static let notification = "Notification".localized
+    static let reminder = "Reminder".localized
     static let oneMBefore = "1 min before".localized
     static let fiveMBefore = "5 min before".localized
     static let fifteenMBefore = "15 min before".localized
@@ -100,5 +100,9 @@ struct Strings {
     static let selectWeekdays = "Select weekdays".localized
     
     static let errorMessage = "Oops! Something went wrong.\nPlease try again.".localized
+    
+    static let toSettings = "To receive reminders, please allow notifications in Settings".localized
+    static let reminderFrom = "Reminder from ".localized
+    static let appName = "ToDoGarden"
     
 }

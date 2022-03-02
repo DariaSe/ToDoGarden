@@ -18,9 +18,7 @@
 		DA3C4F4C27B17D0F0027B53E /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DA3C4F4A27B17D0F0027B53E /* Localizable.stringsdict */; };
 		DA5110CE27A7F9E50019BD81 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5110CD27A7F9E50019BD81 /* AppState.swift */; };
 		DA5110D027A7FC360019BD81 /* TasksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5110CF27A7FC360019BD81 /* TasksInteractor.swift */; };
-		DA520A3527997FA80075D92F /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA520A3427997FA80075D92F /* TaskViewModel.swift */; };
 		DA520A49279982450075D92F /* e_Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA520A48279982450075D92F /* e_Color.swift */; };
-		DA520A4B279984070075D92F /* TaskViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA520A4A279984070075D92F /* TaskViewModelFactory.swift */; };
 		DA520A4F279984430075D92F /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA520A4C279984430075D92F /* CalendarDay.swift */; };
 		DA520A50279984430075D92F /* RecurrenceRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA520A4D279984430075D92F /* RecurrenceRule.swift */; };
 		DA520A51279984430075D92F /* RecurrenceFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA520A4E279984430075D92F /* RecurrenceFrequency.swift */; };
@@ -49,6 +47,7 @@
 		DA6E7A38279800C200495D26 /* Strings Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E7A37279800C200495D26 /* Strings Game.swift */; };
 		DA6E7A3B2798038500495D26 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E7A3A2798038500495D26 /* TaskCell.swift */; };
 		DA81EA4B27CCE4F3003023D3 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA81EA4A27CCE4F3003023D3 /* NotificationService.swift */; };
+		DA81EA4D27CF8786003023D3 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA81EA4C27CF8786003023D3 /* UserDefaults.swift */; };
 		DA9BA31427B26578006C46F4 /* DropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA31327B26578006C46F4 /* DropdownMenu.swift */; };
 		DAC0991327B7F4D6001DFCD2 /* TaskListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991227B7F4D6001DFCD2 /* TaskListContainer.swift */; };
 		DAC0991527B80326001DFCD2 /* e_Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991427B80326001DFCD2 /* e_Alert.swift */; };
@@ -73,9 +72,7 @@
 		DA3C4F4D27B17D1A0027B53E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		DA5110CD27A7F9E50019BD81 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		DA5110CF27A7FC360019BD81 /* TasksInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksInteractor.swift; sourceTree = "<group>"; };
-		DA520A3427997FA80075D92F /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		DA520A48279982450075D92F /* e_Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = e_Color.swift; sourceTree = "<group>"; };
-		DA520A4A279984070075D92F /* TaskViewModelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewModelFactory.swift; sourceTree = "<group>"; };
 		DA520A4C279984430075D92F /* CalendarDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
 		DA520A4D279984430075D92F /* RecurrenceRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurrenceRule.swift; sourceTree = "<group>"; };
 		DA520A4E279984430075D92F /* RecurrenceFrequency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurrenceFrequency.swift; sourceTree = "<group>"; };
@@ -107,6 +104,7 @@
 		DA6E7A37279800C200495D26 /* Strings Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings Game.swift"; sourceTree = "<group>"; };
 		DA6E7A3A2798038500495D26 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		DA81EA4A27CCE4F3003023D3 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		DA81EA4C27CF8786003023D3 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		DA9BA31327B26578006C46F4 /* DropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenu.swift; sourceTree = "<group>"; };
 		DAC0991227B7F4D6001DFCD2 /* TaskListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListContainer.swift; sourceTree = "<group>"; };
 		DAC0991427B80326001DFCD2 /* e_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = e_Alert.swift; sourceTree = "<group>"; };
@@ -133,8 +131,6 @@
 			isa = PBXGroup;
 			children = (
 				DA562461279963C800878ED1 /* Task.swift */,
-				DA520A3427997FA80075D92F /* TaskViewModel.swift */,
-				DA520A4A279984070075D92F /* TaskViewModelFactory.swift */,
 				DA520A4C279984430075D92F /* CalendarDay.swift */,
 				DA520A4E279984430075D92F /* RecurrenceFrequency.swift */,
 				DA520A4D279984430075D92F /* RecurrenceRule.swift */,
@@ -175,6 +171,7 @@
 			children = (
 				DA6BA4CC2792F212009A30C5 /* ToDoGardenApp.swift */,
 				DA6BA4DA2792F2CC009A30C5 /* MainView.swift */,
+				DA81EA4C27CF8786003023D3 /* UserDefaults.swift */,
 				DA5110CD27A7F9E50019BD81 /* AppState.swift */,
 				DA598C4C27AEEE910096CFC7 /* Reusable Views */,
 				DAC0992027B82DD2001DFCD2 /* API Services */,
@@ -425,13 +422,12 @@
 				DA6E7A38279800C200495D26 /* Strings Game.swift in Sources */,
 				DA520A49279982450075D92F /* e_Color.swift in Sources */,
 				DA6BA4CD2792F212009A30C5 /* ToDoGardenApp.swift in Sources */,
-				DA520A4B279984070075D92F /* TaskViewModelFactory.swift in Sources */,
 				DA598C4E27AEEEEB0096CFC7 /* CheckboxButton.swift in Sources */,
 				DA520A51279984430075D92F /* RecurrenceFrequency.swift in Sources */,
 				DA562462279963C800878ED1 /* Task.swift in Sources */,
-				DA520A3527997FA80075D92F /* TaskViewModel.swift in Sources */,
 				DA6BA4E52792F74F009A30C5 /* TaskListView.swift in Sources */,
 				DA81EA4B27CCE4F3003023D3 /* NotificationService.swift in Sources */,
+				DA81EA4D27CF8786003023D3 /* UserDefaults.swift in Sources */,
 				DA520A5B2799846F0075D92F /* e_Date TaskFactory.swift in Sources */,
 				DAC0991F27B822BB001DFCD2 /* TaskCellBottomView.swift in Sources */,
 				DAC0991D27B81FF4001DFCD2 /* TaskListHeader.swift in Sources */,

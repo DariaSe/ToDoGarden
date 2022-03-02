@@ -17,38 +17,55 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         notificationCenter.delegate = self
     }
     
-    func scheduleNotifications(for tasks: [Task]) {
-        var date = Date()
-        var count = 1
-        var ids: [Int] = []
-        while count < 20 {
-            for task in tasks {
-                if task.appearsOnDate(date) && task.notificationDate != nil {
-                    ids.append(task.id)
-                    count += 1
-                }
-            }
-            date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
-        }
-        for task in tasks {
-            let tasksToScheduleCount = ids.filter({$0 == task.id}).count
-            if tasksToScheduleCount != 0 {
-//                scheduleNotifications(for: task, count: tasksToScheduleCount)
+    func requestAuthorization(completion: @escaping (Bool) -> Void) {
+        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            completion(granted)
+            if let error = error {
+                // Handle the error here.
+                print(error)
             }
         }
     }
     
-    func notificationContent(title: String, notificationDate: Date) -> UNMutableNotificationContent {
+    func scheduleNotifications(for tasks: [Task]) {
+        guard Defaults.notificationsAllowanceAsked else { return }
+        requestAuthorization { granted in
+            guard granted else { return }
+            self.notificationCenter.removeAllPendingNotificationRequests()
+            var date = Date()
+            var count = 1
+            var ids: [Int] = []
+            while count < 20 {
+                for task in tasks {
+                    if task.appearsOnDate(date) && task.notificationDate != nil {
+                        ids.append(task.id)
+                        count += 1
+                    }
+                }
+                date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+            }
+            for task in tasks {
+                let tasksToScheduleCount = ids.filter({$0 == task.id}).count
+                if tasksToScheduleCount != 0 {
+                    self.scheduleNotifications(for: task, count: tasksToScheduleCount)
+                }
+            }
+        }
+    }
+    
+    private func notificationContent(title: String, notificationDate: Date) -> UNMutableNotificationContent {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         formatter.dateStyle = .none
         let timeString = formatter.string(from: notificationDate)
         let content = UNMutableNotificationContent()
-        content.title = timeString + " " + title
+        content.title = Strings.reminderFrom + Strings.appName
+        content.body = timeString + ": " + title
+        content.sound = UNNotificationSound.default
         return content
     }
     
-    func scheduleNotifications(for task: Task, count: Int) {
+    private func scheduleNotifications(for task: Task, count: Int) {
         guard let notificationDate = task.notificationDate else { return }
         var date = Date()
         for i in 0..<count {
@@ -67,7 +84,7 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                     print(error.localizedDescription)
                 }
             }
-            date = nextOccurenceDate
+            date = nextOccurenceDate ==^ date ? task.nextOccurenceDate(from: Calendar.current.date(byAdding: .day, value: 1, to: date)!) : nextOccurenceDate
         }
     }
 }
@@ -137,8 +154,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-//        
-//        completionHandler(.banner)
-//    }
+    //    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    //
+    //        completionHandler(.banner)
+    //    }
 }

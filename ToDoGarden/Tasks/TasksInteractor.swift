@@ -33,7 +33,6 @@ class TasksInteractor: ObservableObject {
                 task.executionLog.append(date.dayStart)
             }
             self.appState.tasks.updateExisting(with: task)
-//            self.appState.objectWillChange.send()
             Task.saveToFile(tasks: self.appState.tasks)
         }
     }
@@ -64,8 +63,8 @@ class TasksInteractor: ObservableObject {
             else {
                 self.appState.tasks.append(task)
             }
-            self.appState.objectWillChange.send()
             Task.saveToFile(tasks: self.appState.tasks)
+            NotificationService.shared.scheduleNotifications(for: self.appState.tasks)
             completion(true)
         }
     }
@@ -90,6 +89,7 @@ class TasksInteractor: ObservableObject {
             self.appState.loadingState = .success
             self.appState.tasks = self.appState.tasks.without(task)
             Task.saveToFile(tasks: self.appState.tasks)
+            NotificationService.shared.scheduleNotifications(for: self.appState.tasks)
             completion(true)
         }
     }

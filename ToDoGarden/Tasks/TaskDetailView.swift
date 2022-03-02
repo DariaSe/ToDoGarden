@@ -111,7 +111,7 @@ struct TaskDetailView: View {
                             }
                         }
                         .alert(isPresented: $isShowingValidationWarning, content: {
-                            Alert(title: Text(updatedTask.validationWarning ?? ""), dismissButton: .default(Text("OK")))
+                            Alert(title: Text(updatedTask.validationWarning ?? ""))
                         })
                         .frame(width: 160, height: 60)
                         // MARK: - Delete button
@@ -157,7 +157,10 @@ struct TaskDetailView: View {
         if recurrenceType == .withIntervals && recurrenceInterval == 1 {
             recurrenceType = .regular
         }
-        let recurrenceRule = isRepeating ? RecurrenceRule(recurrenceType: recurrenceType, recurrenceFrequency: recurrenceFrequency, interval: recurrenceInterval, weekdays: selectedWeekdays) : nil
+        let recurrenceRule = isRepeating ? RecurrenceRule(recurrenceType: recurrenceType,
+                                                          recurrenceFrequency: recurrenceFrequency,
+                                                          interval: recurrenceInterval,
+                                                          weekdays: selectedWeekdays) : nil
         var updatedTask = Task(orderID: task.orderID,
                                title: title,
                                startDate: startDate,

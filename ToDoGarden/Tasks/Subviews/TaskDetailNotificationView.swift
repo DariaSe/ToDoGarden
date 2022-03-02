@@ -9,13 +9,26 @@ import SwiftUI
 
 struct TaskDetailNotificationView: View {
     
+    @State var isNotificationsDisallowedAlertShown: Bool = false
+    
     @Binding var isNotificationOn: Bool
     @Binding var notificationDate: Date
     
     var body: some View {
         HStack {
-            CheckboxButton(isOn: $isNotificationOn)
-            Text(Strings.notification)
+            CheckboxButton(isOn: $isNotificationOn) {
+                if isNotificationOn {
+                    NotificationService.shared.requestAuthorization { granted in
+                        if granted {
+                            Defaults.notificationsAllowanceAsked = true
+                        }
+                        else {
+                            isNotificationsDisallowedAlertShown = true
+                        }
+                    }
+                }
+            }
+            Text(Strings.reminder)
                 .font(.system(.body, design: .rounded))
                 .opacity(isNotificationOn ? 1 : 0.8)
             if isNotificationOn {
@@ -24,6 +37,11 @@ struct TaskDetailNotificationView: View {
             }
             Spacer()
         }
+        .alert(isPresented: $isNotificationsDisallowedAlertShown, content: {
+            Alert(title: Text(Strings.toSettings), primaryButton: .default(Text(Strings.settings), action: {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }), secondaryButton: .cancel())
+        })
     }
 }
 

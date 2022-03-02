@@ -12,10 +12,13 @@ struct CheckboxButton: View {
     
     @Binding var isOn: Bool
     
+    var onTap: (() -> ())?
+    
     var body: some View {
         Button {
             withAnimation(.easeOut(duration: 0.2)) {
                 isOn.toggle()
+                onTap?()
             }
         } label: {
             Image(systemName: isOn ? "checkmark.square" : "square")
