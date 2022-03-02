@@ -48,6 +48,7 @@
 		DA6E7A332798008400495D26 /* Game.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6E7A352798008400495D26 /* Game.strings */; };
 		DA6E7A38279800C200495D26 /* Strings Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E7A37279800C200495D26 /* Strings Game.swift */; };
 		DA6E7A3B2798038500495D26 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E7A3A2798038500495D26 /* TaskCell.swift */; };
+		DA81EA4B27CCE4F3003023D3 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA81EA4A27CCE4F3003023D3 /* NotificationService.swift */; };
 		DA9BA31427B26578006C46F4 /* DropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA31327B26578006C46F4 /* DropdownMenu.swift */; };
 		DAC0991327B7F4D6001DFCD2 /* TaskListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991227B7F4D6001DFCD2 /* TaskListContainer.swift */; };
 		DAC0991527B80326001DFCD2 /* e_Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991427B80326001DFCD2 /* e_Alert.swift */; };
@@ -105,6 +106,7 @@
 		DA6E7A362798008600495D26 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Game.strings; sourceTree = "<group>"; };
 		DA6E7A37279800C200495D26 /* Strings Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings Game.swift"; sourceTree = "<group>"; };
 		DA6E7A3A2798038500495D26 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		DA81EA4A27CCE4F3003023D3 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		DA9BA31327B26578006C46F4 /* DropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenu.swift; sourceTree = "<group>"; };
 		DAC0991227B7F4D6001DFCD2 /* TaskListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListContainer.swift; sourceTree = "<group>"; };
 		DAC0991427B80326001DFCD2 /* e_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = e_Alert.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				DA5110CF27A7FC360019BD81 /* TasksInteractor.swift */,
+				DA81EA4A27CCE4F3003023D3 /* NotificationService.swift */,
 				DA6BA4DD2792F6C8009A30C5 /* Subviews */,
 				DA6BA4E42792F74F009A30C5 /* TaskListView.swift */,
 				DA53EF9B279A97B200F03B8B /* TaskDetailView.swift */,
@@ -428,6 +431,7 @@
 				DA562462279963C800878ED1 /* Task.swift in Sources */,
 				DA520A3527997FA80075D92F /* TaskViewModel.swift in Sources */,
 				DA6BA4E52792F74F009A30C5 /* TaskListView.swift in Sources */,
+				DA81EA4B27CCE4F3003023D3 /* NotificationService.swift in Sources */,
 				DA520A5B2799846F0075D92F /* e_Date TaskFactory.swift in Sources */,
 				DAC0991F27B822BB001DFCD2 /* TaskCellBottomView.swift in Sources */,
 				DAC0991D27B81FF4001DFCD2 /* TaskListHeader.swift in Sources */,
@@ -518,7 +522,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -573,7 +577,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

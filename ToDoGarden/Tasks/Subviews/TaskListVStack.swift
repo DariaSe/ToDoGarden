@@ -103,9 +103,7 @@ struct TaskListVStack: View {
         let sourceOrderID = tasks[sourceIndex].orderID
         let destinationOrderID = destinationTask.orderID
         draggedItem.orderID = destinationOrderID
-        print(draggedItem)
         destinationTask.orderID = sourceOrderID
-        print(destinationTask)
         var tasksToSwap = tasks
         tasksToSwap.updateExisting(with: draggedItem)
         tasksToSwap.updateExisting(with: destinationTask)

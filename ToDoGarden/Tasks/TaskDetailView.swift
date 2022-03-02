@@ -21,8 +21,7 @@ struct TaskDetailView: View {
         self.task = task
         self._isNew = State(initialValue: task.title.isEmpty)
         self._title = State(initialValue: task.title)
-        startDate = task.startDate
-//        self._startDate = State(initialValue: task.startDate)
+        self._startDate = State(initialValue: task.startDate)
         self._isRepeating = State(initialValue: task.recurrenceRule != nil)
         if let recurrenceRule = task.recurrenceRule {
             self._recurrenceType = State(initialValue: recurrenceRule.recurrenceType)
@@ -30,7 +29,7 @@ struct TaskDetailView: View {
             self._recurrenceInterval = State(initialValue: recurrenceRule.interval)
             self._selectedWeekdays = State(initialValue: recurrenceRule.weekdays)
         }
-        isNotificationOn = task.notificationDate != nil
+        self._isNotificationOn = State(initialValue: task.notificationDate != nil)
         self._notificationDate = State(initialValue: task.notificationDate ?? Date())
         self._isColorSelected = State(initialValue: task.color != nil)
         self._color = State(initialValue: task.color ?? 0)
@@ -38,7 +37,7 @@ struct TaskDetailView: View {
     
     @State var isNew : Bool = true
     @State private var title : String = ""
-    @State private var startDate : Date = Date()
+    @State private var startDate : Date = Date().addingTimeInterval(86400)
     
     @State private var isRepeating : Bool = true
     @State private var recurrenceType : RecurrenceRule.RecurrenceType = .regular

@@ -80,6 +80,15 @@ struct Task: Codable, Orderable, Identifiable {
         }
     }
     
+    func nextOccurenceDate(from date: Date) -> Date {
+        guard let recurrenceRule = self.recurrenceRule else { return startDate }
+        var date = date
+        while !date.matches(startDate: startDate, recurrenceRule: recurrenceRule) {
+            date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+        }
+        return date
+    }
+    
     
     // MARK: - Interface helpers
     var validationWarning: String? {
@@ -119,8 +128,11 @@ struct Task: Codable, Orderable, Identifiable {
          notes: String = "") {
         self.orderID = orderID
         self.title = title
+        self.startDate = startDate
         self.recurrenceRule = recurrenceRule
+        self.notificationDate = notificationDate
         self.color = color
+        self.notes = notes
     }
     
     //MARK: Decoding and encoding

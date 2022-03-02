@@ -17,6 +17,7 @@ class TasksInteractor: ObservableObject {
     
     init(appState: AppState) {
         self.appState = appState
+        appState.date = Date().dayStart
     }
     
     func setCompletedOrCancel(taskID: Int, date: Date) {
@@ -48,7 +49,7 @@ class TasksInteractor: ObservableObject {
                 tasks.updateExisting(with: newTask)
             }
             self.appState.tasks = tasks.sorted()
-            print(self.appState.tasks.map({$0.orderID}))
+            NotificationService.shared.scheduleNotifications(for: tasks)
         }
     }
     
