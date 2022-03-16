@@ -11,21 +11,39 @@ import SwiftUI
 
 class TasksInteractor: ObservableObject {
     
-    var appState: AppState
+    var appState : AppState
     
-    var subscriptions: [AnyCancellable] = []
+//    var subscriptions: [AnyCancellable] = []
     
     init(appState: AppState) {
         self.appState = appState
         appState.date = Date().dayStart
     }
     
-    func setCompletedOrCancel(taskID: Int, date: Date) {
+    
+    func getTasks() {
+        appState.loadingState = .loading
+        // api call
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            var tasks = Task.loadFromFile() ?? []
+            for (index, task) in tasks.enumerated() {
+                var newTask = task
+                newTask.orderID = index
+                tasks.updateExisting(with: newTask)
+            }
+            self.appState.loadingState = tasks.isEmpty ? .idle : .success
+            self.appState.tasks = tasks.sorted()
+            NotificationService.shared.scheduleNotifications(for: tasks)
+        }
+    }
+    
+    func setCompletedOrCancel(taskID: Int) {
         appState.loadingState = .loading
         // api call
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.appState.loadingState = .success
             guard var task = self.appState.tasks.filter({$0.id == taskID}).first else { return }
+            let date = self.appState.date
             if task.executionLog.contains(where: {$0 ==^ date}) {
                 task.executionLog = task.executionLog.without(date.dayStart)
             }
@@ -34,21 +52,6 @@ class TasksInteractor: ObservableObject {
             }
             self.appState.tasks.updateExisting(with: task)
             Task.saveToFile(tasks: self.appState.tasks)
-        }
-    }
-    
-    func getTasks() {
-        appState.loadingState = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.appState.loadingState = .success
-            var tasks = Task.loadFromFile()?.sorted() ?? []
-            for (index, task) in tasks.enumerated() {
-                var newTask = task
-                newTask.orderID = index
-                tasks.updateExisting(with: newTask)
-            }
-            self.appState.tasks = tasks.sorted()
-            NotificationService.shared.scheduleNotifications(for: tasks)
         }
     }
     

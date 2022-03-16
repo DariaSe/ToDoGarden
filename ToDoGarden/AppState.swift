@@ -10,6 +10,8 @@ import SwiftUI
 
 class AppState: ObservableObject {
     
+    // MARK: - Loading state
+    
     enum LoadingState {
         case idle
         case loading
@@ -18,6 +20,8 @@ class AppState: ObservableObject {
     }
     
     @Published var loadingState : LoadingState = .idle
+    
+    // MARK: - Data
     
     @Published var tasks : [Task] = [] {
         didSet {
@@ -45,6 +49,8 @@ class AppState: ObservableObject {
     @Published var tasksActive : [Task] = []
     @Published var tasksCompleted : [Task] = []
     
+    // MARK: - Content state
+    
     enum ContentState {
         case empty
         case onlyActive
@@ -58,4 +64,8 @@ class AppState: ObservableObject {
         else if tasksActive.isEmpty && !tasksCompleted.isEmpty { return .onlyDone }
         else { return .activeAndDone }
     }
+    
+    // MARK: - Gamification data
+    
+    @Published var resources : GameResources = GameResources.zero
 }

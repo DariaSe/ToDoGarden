@@ -36,16 +36,14 @@ extension Array where Element: Equatable {
     mutating func replace(_ sourceElement: Element, with newElement: Element) {
         guard let index = self.index(of: sourceElement) else { return }
         var newArray = self
-        newArray.remove(at: index)
-        newArray.insert(newElement, at: index)
+        newArray[index] = newElement
         self = newArray
     }
     
     mutating func updateExisting(with updatedElement: Element) {
         guard let index = self.index(of: updatedElement) else { return }
         var newArray = self
-        newArray.remove(at: index)
-        newArray.insert(updatedElement, at: index)
+        newArray[index] = updatedElement
         self = newArray
     }
 }

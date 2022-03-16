@@ -15,6 +15,7 @@ struct MainView: View {
     
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var tasksInteractor: TasksInteractor
+    @EnvironmentObject var gameInteractor: GameInteractor
     
     var body: some View {
         ZStack {

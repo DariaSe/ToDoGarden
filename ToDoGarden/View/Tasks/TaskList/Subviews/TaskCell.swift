@@ -36,7 +36,7 @@ struct TaskCell: View {
                 }
                 // MARK: - Top view
                 TaskCellTopView(task: task, date: date, isEnabled: $isEnabled) {
-                    interactor.setCompletedOrCancel(taskID: task.id, date: date)
+                    interactor.setCompletedOrCancel(taskID: task.id)
                 }
                 .offset(x: offset, y: 0)
                 .onTapGesture {
