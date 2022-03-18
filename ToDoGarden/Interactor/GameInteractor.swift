@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GameInteractor: ObservableObject {
+final class GameInteractor: ObservableObject {
     
     var appState: AppState
     

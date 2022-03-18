@@ -32,11 +32,11 @@ struct TaskCell: View {
                     withAnimation(.easeOut(duration: 0.2)) {
                         offset = 0
                     }
-                    interactor.delete(task: task) { _ in }
+                    interactor.delete(taskID: task.id) { _ in }
                 }
                 // MARK: - Top view
                 TaskCellTopView(task: task, date: date, isEnabled: $isEnabled) {
-                    interactor.setCompletedOrCancel(taskID: task.id)
+                    interactor.toggleTaskCompletion(taskID: task.id)
                 }
                 .offset(x: offset, y: 0)
                 .onTapGesture {

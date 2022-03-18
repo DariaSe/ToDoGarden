@@ -9,21 +9,23 @@ import Foundation
 
 struct GameResources: Codable {
     
-    var experience : Int
-    var gold : Int
-    var water : Int
-    var waterCapacity : Int
-    var donationCurrency : Int
-    var fertilizer : Int
-    var firewood : Int
-    var oil : Int
+    var experience : Int = 0
+    var gold : Int = 0
+    var water : Int = 0
+    var waterCapacity : Int = 10
+    var donationCurrency : Int = 0
+    var fertilizer : Int = 0
+    var firewood : Int = 0
+    var oil : Int = 0
+    var fabric : Int = 0
+    var metal : Int = 0
     
-    static let zero = GameResources(experience: 0, gold: 0, water: 0, waterCapacity: 10, donationCurrency: 0, fertilizer: 0, firewood: 0, oil: 0)
+    static let zero = GameResources()
     
     //MARK: Decoding and encoding
     
     static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let archiveURL = documentsDirectory.appendingPathComponent("user").appendingPathExtension("plist")
+    static let archiveURL = documentsDirectory.appendingPathComponent("resources").appendingPathExtension("plist")
     
     static func saveToFile(gameResources: GameResources) {
         let propertyListEncoder = PropertyListEncoder()

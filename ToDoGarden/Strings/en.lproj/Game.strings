@@ -6,19 +6,15 @@
   
 */
 
-
-"Tomato" = "Tomato";
-"Strawberry" = "Strawberry";
-"Apple" = "Apple";
-"Sunflower" = "Sunflower";
-"Walnut" = "Walnut";
-"Watermelon" = "Watermelon";
-"Cherry" = "Cherry";
-"Pineapple" = "Pineapple";
-"Avocado" = "Avocado";
-"Coconut" = "Coconut";
-"Chili pepper" = "Chili pepper";
-"Dragonfruit" = "Dragonfruit";
+"tomato" = "Tomato";
+"strawberry" = "Strawberry";
+"apple" = "Apple";
+"walnut" = "Walnut";
+"watermelon" = "Watermelon";
+"cherry" = "Cherry";
+"avocado" = "Avocado";
+"coconut" = "Coconut";
+"chiliPepper" = "Chili pepper";
 
 "seed" = "seed";
 "sprout" = "sprout";
@@ -31,6 +27,19 @@
 
 " until fruiting" = " until fruiting";
 " remaining" = " remaining";
+
+"garnet" = "Garnet";
+"tourmaline" = "Tourmaline";
+"rhinestone" = "Rhinestone";
+"morion" = "Morion";
+
+
+"fire" = "Potion of Fire";
+"air" = "Potion of Air";
+"water" = "Potion of Water";
+"earth" = "Potion of Earth";
+"defence" = "Defence potion";
+"hibernation" = "Potion of hibernation";
 
 "Plants" = "Plants";
 "Items" = "Items";

@@ -47,7 +47,8 @@ struct TaskListVStack: View {
                     TaskCell(task: task, date: date, isDragging: isDragging && draggedItem?.id == task.id) {
                         selectedTask = task
                     }
-                    .simultaneousGesture(LongPressGesture()
+                    .onTapGesture { }
+                    .gesture(LongPressGesture(minimumDuration: 0.5)
                                             .onEnded({ _ in
                                                 draggedItem = task
                                             })
@@ -111,7 +112,7 @@ struct TaskListVStack: View {
     }
     
     func saveReorderedTasks() {
-        interactor.saveReorderedTasks(tasks, completion: {_ in })
+        interactor.saveReorderedTasks(tasks)
     }
 }
 

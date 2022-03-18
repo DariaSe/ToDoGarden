@@ -125,7 +125,7 @@ struct TaskDetailView: View {
                             }
                             .alert(isPresented: $isShowingDeletionWarning) {
                                 Alert.taskDeletion {
-                                    interactor.delete(task: task) { success in
+                                    interactor.delete(taskID: task.id) { success in
                                         if success {
                                             presentationMode.wrappedValue.dismiss()
                                         }

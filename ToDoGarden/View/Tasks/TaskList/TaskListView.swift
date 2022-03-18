@@ -23,14 +23,16 @@ struct TaskListView: View {
     var body: some View {
         VStack {
             TaskListHeader(date: $date, onTapAdd: { addTask() })
+            TaskListResourcesView()
+                .padding()
             ScrollView {
-                PullToRefreshSwiftUI(needsRefresh: $refresh,
-                                     coordinateSpaceName: "pullToRefresh") {
-                    appState.tasks = Task.loadFromFile() ?? []
-                    withAnimation { refresh = false }
+                RefreshIndicator(needsRefresh: $refresh) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        interactor.getTasks()
+                        refresh = false
+                    }
                 }
                 VStack {
-                    
                     switch loadingState {
                     case .idle:
                         Spacer(minLength: 200)
@@ -43,12 +45,10 @@ struct TaskListView: View {
                     }
                 }
             }
-            .coordinateSpace(name: "pullToRefresh")
+            .coordinateSpace(name: RefreshIndicator.coordinateSpaceName)
             .sheet(item: $selectedTask, onDismiss: nil, content: { task in
                 TaskDetailView(interactor: interactor, task: task)
             })
-//            .background(Color.backgroundColor
-//                            .edgesIgnoringSafeArea(.all))
         }
         .background(Color.backgroundColor
                         .edgesIgnoringSafeArea(.all))

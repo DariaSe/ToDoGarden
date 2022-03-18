@@ -9,18 +9,15 @@ import Foundation
 
 extension Strings {
     
-    static let tomato = "Tomato".localizedGame
-    static let strawberry = "Strawberry".localizedGame
-    static let apple = "Apple".localizedGame
-    static let sunflower = "Sunflower".localizedGame
-    static let walnut = "Walnut".localizedGame
-    static let watermelon = "Watermelon".localizedGame
-    static let cherry = "Cherry".localizedGame
-    static let pineapple = "Pineapple".localizedGame
-    static let avocado = "Avocado".localizedGame
-    static let coconut = "Coconut".localizedGame
-    static let chiliPepper = "Chili pepper".localizedGame
-    static let dragonfruit = "Dragonfruit".localizedGame
+    static let tomato = "tomato".localizedGame
+    static let strawberry = "strawberry".localizedGame
+    static let apple = "apple".localizedGame
+    static let walnut = "walnut".localizedGame
+    static let watermelon = "watermelon".localizedGame
+    static let cherry = "cherry".localizedGame
+    static let avocado = "avocado".localizedGame
+    static let coconut = "coconut".localizedGame
+    static let chiliPepper = "chiliPepper".localizedGame
     
     static let seed = "seed".localizedGame
     static let sprout = "sprout".localizedGame

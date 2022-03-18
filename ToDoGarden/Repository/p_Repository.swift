@@ -5,14 +5,19 @@
 //  Created by Дарья Селезнёва on 07.03.2022.
 //
 
-import Combine
+import Foundation
 
-protocol Repository {
+protocol TasksRepositoryLogic {
     
-    func getTasks()
-    func setCompletedOrCancel(taskID: Int) -> AnyPublisher?
-    func save(task: Task, completion: @escaping (Bool) -> Void)
-    func saveReorderedTasks(_ tasks: [Task], completion: @escaping (Bool) -> Void)
-    func delete(task: Task, completion: @escaping (Bool) -> Void)
+    func getTasks(completion: @escaping ([Task]?, Error?) -> ())
+    func toggleTaskCompletion(taskID: Int, date: Date, completion: @escaping (Bool, Error?) -> ())
+    func saveReorderedTasks(_ tasks: [Task], completion: @escaping (Bool, Error?) -> ())
+    func save(task: Task, completion: @escaping (Bool, Error?) -> ())
+    func deleteTask(taskID: Int, completion: @escaping (Bool, Error?) -> ())
+    
+}
+
+protocol GameRepositoryLogic {
+    
     
 }

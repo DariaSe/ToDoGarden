@@ -6,18 +6,15 @@
   
 */
 
-"Tomato" = "Помидор";
-"Strawberry" = "Клубника";
-"Apple" = "Яблоко";
-"Sunflower" = "Подсолнух";
-"Walnut" = "Грецкий орех";
-"Watermelon" = "Арбуз";
-"Cherry" = "Вишня";
-"Pineapple" = "Ананас";
-"Avocado" = "Авокадо";
-"Coconut" = "Кокос";
-"Chili pepper" = "Перец чили";
-"Dragonfruit" = "Драгонфрут";
+"tomato" = "Помидор";
+"strawberry" = "Клубника";
+"apple" = "Яблоко";
+"walnut" = "Грецкий орех";
+"watermelon" = "Арбуз";
+"cherry" = "Вишня";
+"avocado" = "Авокадо";
+"coconut" = "Кокос";
+"chiliPepper" = "Перец чили";
 
 "seed" = "семечко";
 "sprout" = "росток";
@@ -30,6 +27,18 @@
 
 " until fruiting" = " до плодоношения";
 " remaining" = " осталось";
+
+"garnet" = "Гранат";
+"tourmaline" = "Турмалин";
+"rhinestone" = "Горный хрусталь";
+"morion" = "Морион";
+
+"fire" = "Зелье Огня";
+"air" = "Зелье Воздуха";
+"water" = "Зелье Воды";
+"earth" = "Зелье Земли";
+"defence" = "Защитное зелье";
+"hibernation" = "Зелье гибернации";
 
 "Plants" = "Растения";
 "Items" = "Предметы";

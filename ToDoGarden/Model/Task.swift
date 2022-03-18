@@ -178,16 +178,36 @@ struct Task: Codable, Orderable, Identifiable {
     static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     static let archiveURL = documentsDirectory.appendingPathComponent("tasks").appendingPathExtension("plist")
     
-    static func saveToFile(tasks: [Task]) {
+    static func saveToFile(tasks: [Task]) throws {
         let propertyListEncoder = PropertyListEncoder()
         let encodedTasks = try? propertyListEncoder.encode(tasks)
-        try? encodedTasks?.write(to: archiveURL, options: .noFileProtection)
+        do {
+            try encodedTasks?.write(to: archiveURL, options: .noFileProtection)
+        } catch {
+            throw(PlistStorageError.writingError)
+        }
     }
     
-    static func loadFromFile() -> [Task]? {
+    static func loadFromFile() throws -> [Task]? {
         let propertyListDecoder = PropertyListDecoder()
-        guard let retrievedTasksData = try? Data(contentsOf: archiveURL) else { return nil }
-        return try? propertyListDecoder.decode(Array<Task>.self, from: retrievedTasksData)
+        do {
+            let retrievedTasksData = try Data(contentsOf: archiveURL)
+            do {
+                let tasks = try propertyListDecoder.decode(Array<Task>.self, from: retrievedTasksData)
+                return tasks
+            }
+            catch {
+                throw(PlistStorageError.unreadableData)
+            }
+        } catch {
+            throw(PlistStorageError.invalidURL)
+        }
+    }
+    
+    enum PlistStorageError: Error {
+        case writingError
+        case invalidURL
+        case unreadableData
     }
 }
 

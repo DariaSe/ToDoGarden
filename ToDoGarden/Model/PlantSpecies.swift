@@ -9,7 +9,7 @@ import Foundation
 
 struct PlantSpecies {
     var id: Int
-    var title: String
+    var title: PlantName
     var description: String
     var buyCostGold: Int
     var buyCostDonation: Int
@@ -27,8 +27,24 @@ struct PlantSpecies {
     var fruitingDuration: Int
     var maxAge: Int { daysTilFruiting + fruitingDuration }
     
+    static let tomato = PlantSpecies(id: 1,
+                                     title: PlantName.tomato,
+                                     description: "",
+                                     buyCostGold: 3,
+                                     buyCostDonation: 0,
+                                     sellCost: 1,
+                                     growthType: .bush,
+                                     waterConsumption: 2,
+                                     fertilizerConsumption: 2,
+                                     fertilizerOutput: 2,
+                                     levelRequired: 1,
+                                     daysTilBlooming: 10,
+                                     daysTilFruiting: 12,
+                                     nominalYield: 3,
+                                     fruitingDuration: 7)
+    
     static let strawberry = PlantSpecies(id: 2,
-                                         title: Strings.strawberry,
+                                         title: PlantName.strawberry,
                                          description: "",
                                          buyCostGold: 4,
                                          buyCostDonation: 0,
@@ -44,7 +60,7 @@ struct PlantSpecies {
                                          fruitingDuration: 7)
     
     static let apple = PlantSpecies(id: 3,
-                                        title: Strings.apple,
+                                        title: PlantName.apple,
                                         description: "",
                                         buyCostGold: 5,
                                         buyCostDonation: 1,
@@ -60,7 +76,7 @@ struct PlantSpecies {
                                         fruitingDuration: 10)
     
     static let walnut = PlantSpecies(id: 5,
-                                     title: Strings.walnut,
+                                     title: PlantName.walnut,
                                      description: "",
                                      buyCostGold: 6,
                                      buyCostDonation: 1,
@@ -76,7 +92,7 @@ struct PlantSpecies {
                                      fruitingDuration: 24)
     
     static let watermelon = PlantSpecies(id: 6,
-                                         title: Strings.watermelon,
+                                         title: PlantName.watermelon,
                                          description: "",
                                          buyCostGold: 6,
                                          buyCostDonation: 1,
@@ -92,7 +108,7 @@ struct PlantSpecies {
                                          fruitingDuration: 3)
     
     static let cherry = PlantSpecies(id: 7,
-                                     title: Strings.cherry,
+                                     title: PlantName.cherry,
                                      description: "",
                                      buyCostGold: 6,
                                      buyCostDonation: 1,
@@ -108,7 +124,7 @@ struct PlantSpecies {
                                      fruitingDuration: 7)
     
     static let avocado = PlantSpecies(id: 9,
-                                      title: Strings.avocado,
+                                      title: PlantName.avocado,
                                       description: "",
                                       buyCostGold: 8,
                                       buyCostDonation: 1,
@@ -124,7 +140,7 @@ struct PlantSpecies {
                                       fruitingDuration: 9)
     
     static let coconut = PlantSpecies(id: 10,
-                                      title: Strings.coconut,
+                                      title: PlantName.coconut,
                                       description: "",
                                       buyCostGold: 8,
                                       buyCostDonation: 2,
@@ -140,7 +156,7 @@ struct PlantSpecies {
                                       fruitingDuration: 8)
     
     static let chiliPepper = PlantSpecies(id: 11,
-                                          title: Strings.chiliPepper,
+                                          title: PlantName.chiliPepper,
                                           description: "",
                                           buyCostGold: 7,
                                           buyCostDonation: 2,
@@ -155,7 +171,19 @@ struct PlantSpecies {
                                           nominalYield: 3,
                                           fruitingDuration: 5)
     
-    static let plants: [PlantSpecies] = [.strawberry, .apple, .walnut, .watermelon, .cherry, .avocado, .coconut, .chiliPepper]
+    static let plants: [PlantSpecies] = [.tomato, .strawberry, .apple, .walnut, .watermelon, .cherry, .avocado, .coconut, .chiliPepper]
+}
+
+enum PlantName: String {
+    case tomato
+    case strawberry
+    case apple
+    case walnut
+    case watermelon
+    case cherry
+    case avocado
+    case coconut
+    case chiliPepper
 }
 
 enum PlantGrowthType: Int {
