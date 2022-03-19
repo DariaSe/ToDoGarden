@@ -63,6 +63,8 @@
 		DA96F61F27E35731004901C5 /* GameLocalStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA96F61E27E35731004901C5 /* GameLocalStorageService.swift */; };
 		DA96F62127E477A5004901C5 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA96F62027E477A5004901C5 /* Items.swift */; };
 		DA96F62327E47851004901C5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA96F62227E47851004901C5 /* Recipe.swift */; };
+		DA96F62527E490E5004901C5 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA96F62427E490E5004901C5 /* Quest.swift */; };
+		DA96F62727E4ADF4004901C5 /* LootGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA96F62627E4ADF4004901C5 /* LootGenerator.swift */; };
 		DA9BA31427B26578006C46F4 /* DropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA31327B26578006C46F4 /* DropdownMenu.swift */; };
 		DAC0991327B7F4D6001DFCD2 /* TaskListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991227B7F4D6001DFCD2 /* TaskListContainer.swift */; };
 		DAC0991527B80326001DFCD2 /* e_Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0991427B80326001DFCD2 /* e_Alert.swift */; };
@@ -135,6 +137,8 @@
 		DA96F61E27E35731004901C5 /* GameLocalStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLocalStorageService.swift; sourceTree = "<group>"; };
 		DA96F62027E477A5004901C5 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		DA96F62227E47851004901C5 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		DA96F62427E490E5004901C5 /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
+		DA96F62627E4ADF4004901C5 /* LootGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LootGenerator.swift; sourceTree = "<group>"; };
 		DA9BA31327B26578006C46F4 /* DropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenu.swift; sourceTree = "<group>"; };
 		DAC0991227B7F4D6001DFCD2 /* TaskListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListContainer.swift; sourceTree = "<group>"; };
 		DAC0991427B80326001DFCD2 /* e_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = e_Alert.swift; sourceTree = "<group>"; };
@@ -182,8 +186,9 @@
 			isa = PBXGroup;
 			children = (
 				DA81EA4A27CCE4F3003023D3 /* NotificationService.swift */,
-				DA52F19227E1C7B10042D2F8 /* LevelManager.swift */,
 				DA96F61C27E34FE4004901C5 /* InMemoryTasksWorker.swift */,
+				DA52F19227E1C7B10042D2F8 /* LevelManager.swift */,
+				DA96F62627E4ADF4004901C5 /* LootGenerator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 				DA52F0F727D663AC0042D2F8 /* PlantSpecies.swift */,
 				DA52F0F927D663CD0042D2F8 /* Plant.swift */,
 				DA96F62227E47851004901C5 /* Recipe.swift */,
+				DA96F62427E490E5004901C5 /* Quest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -550,6 +556,7 @@
 				DA96F61F27E35731004901C5 /* GameLocalStorageService.swift in Sources */,
 				DA598C4E27AEEEEB0096CFC7 /* CheckboxButton.swift in Sources */,
 				DA520A51279984430075D92F /* RecurrenceFrequency.swift in Sources */,
+				DA96F62727E4ADF4004901C5 /* LootGenerator.swift in Sources */,
 				DA562462279963C800878ED1 /* Task.swift in Sources */,
 				DA6BA4E52792F74F009A30C5 /* TaskListView.swift in Sources */,
 				DA81EA4B27CCE4F3003023D3 /* NotificationService.swift in Sources */,
@@ -560,6 +567,7 @@
 				DA96F61D27E34FE4004901C5 /* InMemoryTasksWorker.swift in Sources */,
 				DA52F10327D668FA0042D2F8 /* p_Repository.swift in Sources */,
 				DA520A5B2799846F0075D92F /* e_Date TaskFactory.swift in Sources */,
+				DA96F62527E490E5004901C5 /* Quest.swift in Sources */,
 				DA96F62127E477A5004901C5 /* Items.swift in Sources */,
 				DAC0991F27B822BB001DFCD2 /* TaskCellBottomView.swift in Sources */,
 				DAC0991D27B81FF4001DFCD2 /* TaskListHeader.swift in Sources */,

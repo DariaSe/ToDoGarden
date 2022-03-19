@@ -20,4 +20,5 @@ protocol TasksRepositoryLogic {
 protocol GameRepositoryLogic {
     
     
+    
 }

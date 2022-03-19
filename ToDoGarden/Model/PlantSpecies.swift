@@ -174,7 +174,7 @@ struct PlantSpecies {
     static let plants: [PlantSpecies] = [.tomato, .strawberry, .apple, .walnut, .watermelon, .cherry, .avocado, .coconut, .chiliPepper]
 }
 
-enum PlantName: String {
+enum PlantName: String, CaseIterable, Item {
     case tomato
     case strawberry
     case apple

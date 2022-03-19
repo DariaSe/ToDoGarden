@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GameResources: Codable {
+class GameResources: NSObject, Codable {
     
     var experience : Int = 0
     var gold : Int = 0
@@ -20,7 +20,36 @@ struct GameResources: Codable {
     var fabric : Int = 0
     var metal : Int = 0
     
+    var hasOilPress : Bool = false
+    var hasCauldron : Bool = false
+    
     static let zero = GameResources()
+    
+    var currentLevel: Int { LevelManager.currentLevel(experience: experience) }
+    
+    
+    
+    func addResource(resourceType: ResourceType, amount: Int) {
+        let totalAmount = self.value(forKeyPath: resourceType.rawValue) as! Int + amount
+        self.setValue(totalAmount, forKeyPath: resourceType.rawValue)
+//        switch resourceType {
+//        case .gold: gold += amount
+//        case .water: water += amount
+//        case .fertilizer: fertilizer += amount
+//        case .firewood: firewood += amount
+//        case .oil: oil += amount
+//        case .fabric: fabric += amount
+//        case .metal: metal += amount
+//        }
+    }
+    
+    func subtractResource(resourceType: ResourceType, amount: Int) {
+        var totalAmount = self.value(forKeyPath: resourceType.rawValue) as! Int - amount
+        if totalAmount < 0 {
+            totalAmount = 0
+        }
+        self.setValue(totalAmount, forKeyPath: resourceType.rawValue)
+    }
     
     //MARK: Decoding and encoding
     
@@ -38,4 +67,14 @@ struct GameResources: Codable {
         guard let retrievedData = try? Data(contentsOf: archiveURL) else { return nil }
         return try? propertyListDecoder.decode(GameResources.self, from: retrievedData)
     }
+}
+
+enum ResourceType: String, CaseIterable {
+    case gold
+    case water
+    case fertilizer
+    case firewood
+    case oil
+    case fabric
+    case metal
 }
